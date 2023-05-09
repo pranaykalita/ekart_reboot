@@ -57,6 +57,7 @@ class CustomerUserManager(BaseUserManager):
 
 
 class CustomerUser(AbstractUser, PermissionsMixin):
+
     email = models.EmailField(unique=True, max_length=254)
     username = models.CharField(unique=True, max_length=255)
     password = models.CharField(max_length=255)
@@ -94,8 +95,6 @@ class CustomerUser(AbstractUser, PermissionsMixin):
 
 class Customerdetail(models.Model):
     customeruser = models.OneToOneField(CustomerUser, on_delete=models.CASCADE, related_name='customer', verbose_name='Profile')
-    firstname = models.CharField(max_length=20)
-    lastname = models.CharField(max_length=20)
     mobile = models.CharField(max_length=12)
     profileimg = models.ImageField(upload_to='profile/profileimg')
 

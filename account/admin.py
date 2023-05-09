@@ -11,7 +11,7 @@ admin.site.register(CustomerUser, CustomerUserAdmin)
 
 
 class CustomerdetailAdmin(admin.ModelAdmin):
-    list_display = ['customeruser', 'firstname', 'lastname', 'mobile']
+    list_display = ['customeruser', 'mobile']
 
 
 admin.site.register(Customerdetail, CustomerdetailAdmin)
