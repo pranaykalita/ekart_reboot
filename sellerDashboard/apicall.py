@@ -30,6 +30,7 @@ def delete_category(api_url):
     if response.status_code == 201:
         return True
     else:
+
         return False
 
 def delete_subcategory(api_url):
