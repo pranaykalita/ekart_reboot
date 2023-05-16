@@ -9,8 +9,13 @@ urlpatterns = [
     path('subcategory/', SubcategoryList.as_view()),
     path('subcategory/<int:id>/', SubcategoryDetail.as_view()),
 
-    path('products/', ProductList.as_view()),
-    path('products/<str:name>/', ProductData.as_view()),
+    # path('products/', ProductList.as_view()),
+    # path('products/<str:name>/', ProductData.as_view()),
+    #
+    # path('prod/', addproductDetails.as_view()),
+
+    path('products/', ProductsList.as_view()),
+    path('products/<str:id>/', ProductDetail.as_view()),
 
 
 

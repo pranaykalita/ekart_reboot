@@ -8,7 +8,9 @@ urlpatterns = [
     path('accounts/', AccountsList.as_view(), name='accountsAPI'),
 
     # GET /api/category/
-    path('category/', CategoryList.as_view(), name='categorylistAPI'),
+    path('combinecategory/', CategorySubList.as_view(), name='categorylistAPI'),
+    path('category/', CategoryList.as_view(), name='categoryAPI'),
+    path('subcategory/', SubcategoryList.as_view(), name='subcategoryAPI'),
 
     # GET /api/products/
     path('products/', ProductList.as_view(), name='productslistAPI'),

@@ -1,0 +1,104 @@
+{% load static %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <!-- Product image -->
+                        <a href="#" class="text-center d-block mb-4">
+                            <img id="mainImage" src="{{ viewproduct.mainimage }}" class="img-fluid product-thumb" alt="Product-img">
+                        </a>
+
+                        <div class="d-lg-flex text-center justify-content-center">
+                                <a href="#" class="ms-2 extraIMG">
+                                    <img src="{{ viewproduct.mainimage }}" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img">
+                                </a>
+                            {% for img in viewproduct.productimg %}
+                                <a href="#" class="ms-2 extraIMG">
+                                    <img src="{{ img.image }}" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img">
+                                </a>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-7">
+                        <form class="ps-lg-4">
+                            <!-- Product title -->
+                            <h3 class="mt-0">{{ viewproduct.name }} <a href="javascript: void(0);" class="text-muted"><i class="mdi mdi-square-edit-outline ms-2"></i></a></h3>
+                            <p class="mb-1">{{ viewproduct.productdetail.about }}</p>
+
+
+                            <!-- Product stock -->
+                            <div class="mt-3">
+                                <h4><span class="badge badge-success-lighten">Instock</span></h4>
+                            </div>
+
+                            <!-- Product description -->
+                            <div class="mt-4">
+                                <h6 class="font-14">Retail Price:</h6>
+                                <h3 class="text-primary"> ${{ viewproduct.price }}</h3>
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="mt-4">
+                                <h6 class="font-14">Quantity</h6>
+                                <div class="d-flex">
+
+                                    <h5 class="text-danger">{{ viewproduct.quantity }}</h5>
+                                </div>
+                            </div>
+
+                            <!-- Product description -->
+                            <div class="mt-4">
+                                <h6 class="font-14">Description:</h6>
+                                <p>{{ viewproduct.productdetail.description }}</p>
+                            </div>
+
+                            <!-- Product information -->
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6 class="font-14">Size:</h6>
+                                        <p class="text-sm lh-150">{{ viewproduct.productdetail.size }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="font-14">Variant:</h6>
+                                        <p class="text-sm lh-150">{{ viewproduct.productdetail.variant }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="font-14">SKU:</h6>
+                                        <p class="text-sm lh-150">{{ viewproduct.productdetail.SKU }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row-->
+
+            </div>
+            <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+
+<script>
+ const extraIMGs = document.querySelectorAll('.extraIMG');
+ console.log(extraIMGs)
+ // Add a click event listener to each extraIMG
+    extraIMGs.forEach(function (extraIMG) {
+        extraIMG.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default link behavior
+
+            // Get the source of the clicked extraIMG
+            const newImageSrc = this.querySelector('img').src;
+
+            // Set the mainImage source to the clicked extraIMG source
+            document.getElementById('mainImage').src = newImageSrc;
+        });
+    });
+
+</script>

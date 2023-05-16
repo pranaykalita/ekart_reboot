@@ -1,7 +1,6 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin, RetrieveModelMixin
 
-from account.models import *
 from .serializer import *
 
 
@@ -120,10 +119,33 @@ class SubcategoryDetail(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin,
 #########################################
 # product CRUD
 #########################################
+#
+# class ProductList(ListModelMixin, CreateModelMixin, GenericAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+#
+#     def put(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+#
+#
+# class ProductData(RetrieveModelMixin, DestroyModelMixin, GenericAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     lookup_field = 'name'
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
+#
+#     def delete(self, request, *args, **kwargs):
+#         return self.destroy(request, *args, **kwargs)
 
-class ProductList(ListModelMixin, CreateModelMixin, GenericAPIView):
+
+class ProductsList(ListModelMixin,CreateModelMixin,GenericAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = productsSerialzier
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -131,14 +153,10 @@ class ProductList(ListModelMixin, CreateModelMixin, GenericAPIView):
     def put(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-
-class ProductData(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
+class ProductDetail(RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin,GenericAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = productsSerialzier
     lookup_field = 'id'
-
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -146,5 +164,5 @@ class ProductData(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, Gener
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
-#########################################
-#########################################
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)

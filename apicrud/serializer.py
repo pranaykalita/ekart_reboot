@@ -74,45 +74,85 @@ class SubCategorySerializer(serializers.ModelSerializer):
 # Products Serialziers
 ##################################################
 
-class ProductSerializer(serializers.ModelSerializer):
-    category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
-    subcategory = serializers.SlugRelatedField(slug_field='name', queryset=Subcategory.objects.all())
-
-    class Meta:
-        model = Product
-        fields = '__all__'
-
-#
-# class productImgSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Productimage
-#         fields = ('image',)
-#
-# class productDataSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Productdetails
-#         fields = '__all__'
-#
 # class ProductSerializer(serializers.ModelSerializer):
-#
-#     category = serializers.CharField(source='category.name')
-#     subcategory = serializers.CharField(source='subcategory.name')
-#
-#     about = serializers.CharField(source='productdetail.about')
-#     description = serializers.CharField(source='productdetail.description')
-#     size = serializers.CharField(source='productdetail.size')
-#     variant = serializers.CharField(source='productdetail.variant')
-#     SKU = serializers.CharField(source='productdetail.SKU')
-#
-#     productimg = productImgSerializer(many=True)
+#     category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
+#     subcategory = serializers.SlugRelatedField(slug_field='name', queryset=Subcategory.objects.all())
 #
 #     class Meta:
 #         model = Product
 #         fields = '__all__'
 #
-#     def get_category(self, obj):
-#         return CategorySerializer(obj.category).data
-#
-#     def get_subcategory(self, obj):
-#         return SubCategorySerializer(obj.subcategory).data
-#
+#     def create(self, validated_data):
+#         name = validated_data.pop('name')
+#         product = Product(**validated_data)
+#         product.name = name
+#         product.save()
+#         return product
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Productdetails
+        fields = ('about', 'description', 'size', 'variant', 'SKU')
+
+
+class ProductimageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Productimage
+        fields = ('image',)
+
+
+class productsSerialzier(serializers.ModelSerializer):
+    productdetail = ProductDetailSerializer()
+    productimg = ProductimageSerializer(many=True,required=False)
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    def create(self, validated_data):
+        name = validated_data.pop('name')
+        productdetail_data = validated_data.pop('productdetail')
+        productimage_data = validated_data.pop('productimg',[])
+
+        product = Product.objects.create(name=name, **validated_data)
+        Productdetails.objects.create(product=product, **productdetail_data)
+
+        for productimg in productimage_data:
+            Productimage.objects.create(product=product, **productimg)
+
+        return product
+
+    def update(self, instance, validated_data):
+        name = validated_data.get('name', instance.name)
+        img = validated_data.get('mainimage',instance.mainimage)
+        productdetail_data = validated_data.get('productdetail', {})
+        productimage_data = validated_data.get('productimg', [])
+
+        instance.name = name
+        instance.mainimage = img
+        instance.save()
+
+
+        productdetail = instance.productdetail
+        for attr, value in productdetail_data.items():
+            setattr(productdetail, attr, value)
+        productdetail.save()
+
+        existing_product_images = instance.productimg.all()
+        existing_image_ids = [image.id for image in existing_product_images]
+
+        for productimg in productimage_data:
+            image_id = productimg.get('id')
+            if image_id and image_id in existing_image_ids:
+                image_instance = Productimage.objects.get(id=image_id, product=instance)
+                image_instance.image = productimg.get('image', image_instance.image)
+                image_instance.save()
+            else:
+                product_img = Productimage.objects.create(product=instance, **productimg)
+                existing_image_ids.append(product_img.id)
+
+        # Delete any existing images not present in the updated data
+        instance.productimg.exclude(id__in=existing_image_ids).delete()
+
+        return instance

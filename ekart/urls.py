@@ -9,6 +9,8 @@ urlpatterns = [
 
     path('api/', include('api.urls')),
     path('apicrud/', include('apicrud.urls')),
+
+    path('seller/', include('sellerDashboard.urls')),
 ]
 
 # media

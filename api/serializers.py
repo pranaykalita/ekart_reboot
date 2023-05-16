@@ -27,16 +27,19 @@ class accountSerializer(serializers.ModelSerializer):
 class subcategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Subcategory
-        fields = ['name']
-
+        fields = ['id', 'name']
 
 # category
 class categorySerializer(serializers.ModelSerializer):
     subcategory = subcategorySerializer(many=True)
-
     class Meta:
         model = Category
-        fields = ['name', 'subcategory']
+        fields = ['id', 'name', 'subcategory']
+
+class categoryOnlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
 
 
 ###################### Products ######################
@@ -61,7 +64,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'price', 'quantity', 'category', 'subcategory', 'image']
+        fields = ['id', 'name', 'price', 'quantity', 'category', 'subcategory', 'mainimage']
 
 
 # Single Product
@@ -71,7 +74,7 @@ class singleProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'name', 'price', 'quantity', 'category', 'subcategory', 'productdetail', 'image', 'productimg',)
+        fields = ('id', 'name', 'price', 'quantity', 'category', 'subcategory', 'productdetail', 'mainimage', 'productimg',)
 
 
 ###################### CART ######################
@@ -79,7 +82,7 @@ class singleProductSerializer(serializers.ModelSerializer):
 class SimpelItemdetailserializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'price', 'image']
+        fields = ['id', 'price', 'mainimage']
 
 
 # cart

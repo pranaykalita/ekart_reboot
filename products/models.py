@@ -9,17 +9,17 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category',default=None)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', default=None)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='subcategory')
-    image = models.ImageField(upload_to='products/productImg/')
+    mainimage = models.ImageField(upload_to='products/productImg/')
     created_at = models.DateTimeField(auto_now_add=True)
 
     # resize image to perfect fit
-    def save(self):
-        super().save()  # saving image first
+    def save(self,*args, **kwargs):
+        super().save(*args, **kwargs)  # saving image first
 
-        img = resize_image(self.image.path)
-        img.save(self.image.path)
+        img = resize_image(self.mainimage.path)
+        img.save(self.mainimage.path)
 
     def __str__(self):
         return self.name
@@ -42,8 +42,8 @@ class Productimage(models.Model):
     image = models.ImageField(upload_to='products/productImg/')
 
     # resize image to perfect fit
-    def save(self):
-        super().save()  # saving image first
+    def save(self,*args, **kwargs):
+        super().save(*args, **kwargs)  # saving image first
 
         img = resize_image(self.image.path)
         img.save(self.image.path)

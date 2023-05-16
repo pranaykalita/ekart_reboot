@@ -1,0 +1,76 @@
+<ul class="side-nav">
+
+    <li class="side-nav-title side-nav-item">Main</li>
+
+    <li class="side-nav-item">
+        <a data-bs-toggle="collapse" href="#sidebarDashboards" class="side-nav-link">
+            <i class="uil-home-alt"></i>
+            <span class="badge bg-success float-end">4</span>
+            <span> Dashboards </span>
+        </a>
+
+    </li>
+
+    <li class="side-nav-title side-nav-item">managements</li>
+
+    <li class="side-nav-item">
+        <a href="{% url 'sellerproducts' %}" class="side-nav-link">
+            <i class="uil-calender"></i>
+            <span> products </span>
+        </a>
+    </li>
+    <li class="side-nav-item">
+        <a data-bs-toggle="collapse show" href="#sidebarTasks" aria-expanded="true" aria-controls="sidebarTasks" class="side-nav-link">
+            <i class="uil-clipboard-alt"></i>
+            <span> Products </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse show" id="sidebarTasks">
+            <ul class="side-nav-second-level">
+                <li>
+                    <a href="apps-tasks.html">List Products</a>
+                </li>
+                <li>
+                    <a href="apps-tasks-details.html">Add Category</a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="#" class="side-nav-link">
+            <i class="uil-calender"></i>
+            <span> Orders </span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a data-bs-toggle="collapse show" href="#sidebarTasks" aria-expanded="true" aria-controls="sidebarTasks" class="side-nav-link">
+            <i class="uil-clipboard-alt"></i>
+            <span> Category </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse show" id="sidebarTasks">
+            <ul class="side-nav-second-level">
+                <li>
+                    <a href="apps-tasks.html">Show Category</a>
+                </li>
+                <li>
+                    <a href="apps-tasks.html">Show SubCategory</a>
+                </li>
+                <li>
+                    <a href="apps-tasks-details.html">Add Category</a>
+                </li>
+                <li>
+                    <a href="apps-kanban.html">Add SubCategory</a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="#" class="side-nav-link">
+            <i class="uil-calender"></i>
+            <span> Sellers </span>
+        </a>
+    </li>

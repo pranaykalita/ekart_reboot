@@ -20,14 +20,26 @@ class AccountsList(ListModelMixin, GenericAPIView):
 ##################### CATEGORY AND SUB #####################
 
 # Category and SubCategory
-class CategoryList(ListModelMixin, GenericAPIView):
+class CategorySubList(ListModelMixin, GenericAPIView):
     queryset = Category.objects.all()
     serializer_class = categorySerializer
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
+class CategoryList(ListModelMixin,GenericAPIView):
+    queryset = Category.objects.all()
+    serializer_class = categoryOnlySerializer
 
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+class SubcategoryList(ListModelMixin,GenericAPIView):
+    queryset = Subcategory.objects.all()
+    serializer_class = subcategorySerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
 
 ##################### PRODUCT #####################
@@ -58,7 +70,6 @@ class ProductRetrive(RetrieveModelMixin, GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
-
 
 
 ##################### CART #####################
