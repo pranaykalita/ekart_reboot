@@ -14,12 +14,6 @@
     <li class="side-nav-title side-nav-item">managements</li>
 
     <li class="side-nav-item">
-        <a href="{% url 'sellerproducts' %}" class="side-nav-link">
-            <i class="uil-calender"></i>
-            <span> products </span>
-        </a>
-    </li>
-    <li class="side-nav-item">
         <a data-bs-toggle="collapse show" href="#sidebarTasks" aria-expanded="true" aria-controls="sidebarTasks" class="side-nav-link">
             <i class="uil-clipboard-alt"></i>
             <span> Products </span>
@@ -28,10 +22,10 @@
         <div class="collapse show" id="sidebarTasks">
             <ul class="side-nav-second-level">
                 <li>
-                    <a href="apps-tasks.html">List Products</a>
+                    <a href="{% url 'sellerproducts' %}">List Products</a>
                 </li>
                 <li>
-                    <a href="apps-tasks-details.html">Add Category</a>
+                    <a href="{% url 'addproduct' %}">Add Products</a>
                 </li>
             </ul>
         </div>
@@ -53,16 +47,10 @@
         <div class="collapse show" id="sidebarTasks">
             <ul class="side-nav-second-level">
                 <li>
-                    <a href="apps-tasks.html">Show Category</a>
+                    <a href="{% url 'sellercategory' %}">List Category</a>
                 </li>
                 <li>
-                    <a href="apps-tasks.html">Show SubCategory</a>
-                </li>
-                <li>
-                    <a href="apps-tasks-details.html">Add Category</a>
-                </li>
-                <li>
-                    <a href="apps-kanban.html">Add SubCategory</a>
+                    <a href="{% url 'sellersubcategory' %}">List SubCategory</a>
                 </li>
             </ul>
         </div>
