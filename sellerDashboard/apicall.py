@@ -30,7 +30,6 @@ def delete_category(api_url):
     if response.status_code == 201:
         return True
     else:
-
         return False
 
 def delete_subcategory(api_url):
@@ -39,6 +38,21 @@ def delete_subcategory(api_url):
         return True
     else:
         return False
+
+def update_category(api_url,json_data):
+    response = requests.patch(api_url, data=json_data)
+    if response.status_code == 201:
+        return True
+    else:
+        return False
+
+def update_subcategory(api_url,json_data):
+    response = requests.patch(api_url, data=json_data)
+    if response.status_code == 201:
+        return True
+    else:
+        return False
+
 
 
 def get_subcategory(api_url):

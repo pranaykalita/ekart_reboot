@@ -50,11 +50,7 @@
                                     <p class="m-0 d-inline-block align-middle font-16">
                                         <a href="apps-ecommerce-products-details.html" class="text-body">{{ product.name }}</a>
                                         <br>
-                                        <span class="text-warning mdi mdi-star"></span>
-                                        <span class="text-warning mdi mdi-star"></span>
-                                        <span class="text-warning mdi mdi-star"></span>
-                                        <span class="text-warning mdi mdi-star"></span>
-                                        <span class="text-warning mdi mdi-star"></span>
+                                        <span class="text-warning">{{ product.productdetail.SKU }}</span>
                                     </p>
                                 </td>
                                 <td>
@@ -82,7 +78,7 @@
 
                                 <td class="table-action">
                                     <a href="{% url 'sellersingleproducts' product.id %}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                    <a href="{% url 'editproduct' product.id %}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                     <a href="{% url 'deleteproduct' product.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                 </td>
                             </tr>

@@ -56,8 +56,10 @@
                                 </td>
 
                                 <td class="table-action">
-                                    <a href="#" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                    <a href="{% url 'deletesubCategory' sub.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                    <button type="button" class="btn action-icon" data-bs-toggle="modal" data-bs-target="#exampleModal{{ sub.id }}"><i class="mdi
+                                    mdi-square-edit-outline"></i></button>
+                                    {% include './editsubcategory.html' %}
+                                    <a href="{% url 'subCategorycrud' sub.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}

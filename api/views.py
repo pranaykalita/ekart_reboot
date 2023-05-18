@@ -47,6 +47,7 @@ class SubcategoryList(ListModelMixin,GenericAPIView):
 # List All Products Filter By Category,SubCategory,Size,Variants
 class ProductList(ListModelMixin, MultipleFieldLookupORMixin, GenericAPIView):
     serializer_class = ProductSerializer
+
     lookup_field = ('category__name', 'subcategory__name', 'productdetail__size', 'productdetails__variant')
 
     def get_queryset(self):

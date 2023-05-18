@@ -1,10 +1,9 @@
-import base64
-import json
-
 from django.shortcuts import render, redirect
 
+from products.models import *
 from .api_urls import *
 from .apicall import *
+from  account.models import CustomerUser,Customerdetail
 
 
 # Create your views here.
@@ -59,23 +58,31 @@ def subcategory(request):
     return render(request, 'sellerDash/pages/subcategory/index.html', context)
 
 
-def del_category(request, id):
-    api_url = categorycrud_url + id
-    del_category = delete_category(api_url)
-    if del_category:
-        return redirect('sellercategory')
+def categoryCrud(request, id):
+    api_url = categorycrud_url + id + '/'
+
+    if request.method == 'POST':
+        name = request.POST['upcatname']
+        data = {'name': name, }
+        update_category(api_url, data)
+
     else:
-        print('Failed to delete')
+        delete_category(api_url)
+
     return redirect('sellercategory')
 
-def del_subcategory(request, id):
-    api_url = subcategorycrud_url + id
-    del_subcategory = delete_subcategory(api_url)
 
-    if del_subcategory:
-        return redirect('sellersubcategory')
+def subcategoryCrud(request, id):
+    api_url = subcategorycrud_url + id + '/'
+
+    if request.method == 'POST':
+        name = request.POST['upsubcatname']
+        data = {'name': name, }
+        update_subcategory(api_url, data)
+
     else:
-        print('Failed to delete')
+        delete_subcategory(api_url)
+
     return redirect('sellersubcategory')
 
 
@@ -112,7 +119,6 @@ def delteproduct(request, id):
 def addproduct(request):
     api_caturl = category_url
     api_subcaturl = subcategory_url
-
     category = get_category(api_caturl)
     subcategory = get_subcategory(api_subcaturl)
 
@@ -120,8 +126,79 @@ def addproduct(request):
         name = request.POST.get("productname")
         price = request.POST.get("productprice")
         quantity = request.POST.get("productqty")
-        category = request.POST.get("prodCategory")
-        subcategory = request.POST.get("prodSubcategory")
+
+        categoryID = request.POST.get("prodCategory")
+        category = Category.objects.get(pk=categoryID)
+        subcategoryID = request.POST.get("prodSubcategory")
+        subcategory = Subcategory.objects.get(pk=subcategoryID)
+
+        about = request.POST.get("productabout")
+        description = request.POST.get("productdescription")
+        size = request.POST.get("productsize")
+        variant = request.POST.get("productvar")
+        # sku = request.POST.get("productSKU")
+
+        mainimg = request.FILES.get("mainimage")
+        img1 = request.FILES.get("prodimg1")
+        img2 = request.FILES.get("prodimg2")
+        img3 = request.FILES.get("prodimg3")
+
+        # seller details
+        sellerID = request.session.get('sellerID')
+        seller = CustomerUser.objects.get(id=sellerID)
+
+        # insert to product
+        product = Product(
+            name=name,
+            price=price,
+            quantity=quantity,
+            category=category,
+            subcategory=subcategory,
+            mainimage=mainimg
+        )
+        product.save()
+        product_id = product.id
+        item = Product.objects.get(pk=product_id)
+
+        details = Productdetails(
+            product=item,
+            about=about,
+            description=description,
+            size=size,
+            variant=variant
+        )
+        details.save()
+
+        if mainimg or img1 or img2 or img3:
+            if img1:
+                prodimg1 = Productimage(product=item, image=img1)
+                prodimg1.save()
+            if img2:
+                prodimg2 = Productimage(product=item, image=img2)
+                prodimg2.save()
+            if img3:
+                prodimg3 = Productimage(product=item, image=img3)
+                prodimg3.save()
+
+        return redirect('sellerproducts')
+
+    context = {
+        'category': category,
+        'subcategory': subcategory
+    }
+    return render(request, 'sellerDash/pages/addproduct/index.html', context)
+
+
+def editproduct(request, id):
+    if request.method == "POST":
+        name = request.POST.get("productname")
+        price = request.POST.get("productprice")
+        quantity = request.POST.get("productqty")
+
+        categoryID = request.POST.get("prodCategory")
+        category = Category.objects.get(pk=categoryID)
+        subcategoryID = request.POST.get("prodSubcategory")
+        subcategory = Subcategory.objects.get(pk=subcategoryID)
 
         about = request.POST.get("productabout")
         description = request.POST.get("productdescription")
@@ -134,46 +211,46 @@ def addproduct(request):
         img2 = request.FILES.get("prodimg2")
         img3 = request.FILES.get("prodimg3")
 
-        # Convert images to base64-encoded strings
-        mainimg_data = base64.b64encode(mainimg.read()).decode('utf-8')
-        img1_data = base64.b64encode(img1.read()).decode('utf-8')
-        img2_data = base64.b64encode(img2.read()).decode('utf-8')
-        img3_data = base64.b64encode(img3.read()).decode('utf-8')
+        product = Product.objects.get(id=id)
+        productDetail = Productdetails.objects.get(product=id)
+        productimages = Productimage.objects.all().filter(product=id)
 
-        jsondata = {
-            "productdetail": {
-                "about": about,
-                "description": description,
-                "size": size,
-                "variant": variant,
-                "SKU": sku,
-            },
-            "productimg": [
-                {"image": img1_data},
-                {"image": img2_data},
-                {"image": img3_data},
-            ],
-            "name": name,
-            "price": price,
-            "quantity": quantity,
-            "mainimage": mainimg_data,
-            "category": category,
-            "subcategory": subcategory,
-        }
+        # if selected the uplaod the images
+        if mainimg:
+            product.mainimage = mainimg
+            product.save()
+        else:
+            images = [img for img in [img1, img2, img3] if img]
+            for image, productimage in zip(images, productimages):
+                productimage.image = image
+                productimage.save()
 
-        json_data = json.dumps(jsondata)
+        product.name = name
+        product.price = price
+        product.quantity = quantity
+        product.category = category
+        product.subcategory = subcategory
+        product.save()
 
-        # save to database
-        api_url = product_crud_url
-        add_product(api_url, json_data)
+        productDetail.about = about
+        productDetail.description = description
+        productDetail.size = size
+        productDetail.variant = variant
+        productDetail.SKU = sku
+        productDetail.save()
+        return redirect('sellersingleproducts',id=id)
 
-        print(json_data)
-        print("\n")
-        print(api_url)
-        return redirect('sellerproducts')
+    api_url = product_url + id
+    productdata = single_products(api_url)
+
+    api_caturl = category_url
+    api_subcaturl = subcategory_url
+    categorydata = get_category(api_caturl)
+    subcategorydata = get_subcategory(api_subcaturl)
 
     context = {
-        'category': category,
-        'subcategory': subcategory
+        'singleproduct': productdata,
+        'cat': categorydata,
+        'subcat': subcategorydata
     }
-    return render(request, 'sellerDash/pages/addproduct/index.html', context)
+    return render(request, 'sellerDash/pages/editproduct/index.html', context)

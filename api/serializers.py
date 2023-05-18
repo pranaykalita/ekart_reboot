@@ -61,10 +61,11 @@ class ProductimagesSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     category = serializers.StringRelatedField()
     subcategory = serializers.StringRelatedField()
+    productdetail = ProductdetailsSerializer()
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'price', 'quantity', 'category', 'subcategory', 'mainimage']
+        fields = ['id', 'name', 'price', 'quantity', 'category', 'subcategory','productdetail' ,'mainimage']
 
 
 # Single Product

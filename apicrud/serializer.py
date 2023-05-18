@@ -104,7 +104,8 @@ class ProductimageSerializer(serializers.ModelSerializer):
 
 class productsSerialzier(serializers.ModelSerializer):
     productdetail = ProductDetailSerializer()
-    productimg = ProductimageSerializer(many=True,required=False)
+    productimg = ProductimageSerializer(many=True, required=False)
+    mainimage = serializers.ImageField(required=False)
 
     class Meta:
         model = Product
@@ -113,7 +114,7 @@ class productsSerialzier(serializers.ModelSerializer):
     def create(self, validated_data):
         name = validated_data.pop('name')
         productdetail_data = validated_data.pop('productdetail')
-        productimage_data = validated_data.pop('productimg',[])
+        productimage_data = validated_data.pop('productimg', [])
 
         product = Product.objects.create(name=name, **validated_data)
         Productdetails.objects.create(product=product, **productdetail_data)
@@ -125,14 +126,13 @@ class productsSerialzier(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         name = validated_data.get('name', instance.name)
-        img = validated_data.get('mainimage',instance.mainimage)
+        img = validated_data.get('mainimage', instance.mainimage)
         productdetail_data = validated_data.get('productdetail', {})
         productimage_data = validated_data.get('productimg', [])
 
         instance.name = name
         instance.mainimage = img
         instance.save()
-
 
         productdetail = instance.productdetail
         for attr, value in productdetail_data.items():

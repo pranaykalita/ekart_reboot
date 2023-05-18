@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <form class="" method="POST" action="{% url 'addproduct' %}" enctype="multipart/form-data">
+                <form class="" method="post"  action="{% url 'addproduct' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
 
@@ -11,18 +11,18 @@
                         <div class="col-xl-6">
                             <div class="mb-3">
                                 <label for="prodname" class="form-label">Product Name</label>
-                                <input type="text" id="prodname" name="productname" class="form-control" placeholder="Enter project name" required>
+                                <input type="text" id="prodname" name="productname" class="form-control" placeholder="Enter project name" >
                             </div>
 
                             <div class="mb-3">
                                 <div class="row">
                                     <div class="col">
                                         <label for="project-price" class="form-label">Price</label>
-                                        <input type="text" id="project-price" name="productprice" class="form-control" placeholder="Enter product Price" required>
+                                        <input type="text" id="project-price" name="productprice" class="form-control" placeholder="Enter product Price" >
                                     </div>
                                     <div class="col">
                                         <label for="project-size" class="form-label">Size</label>
-                                        <input type="text" id="project-size" name="productsize" class="form-control" placeholder="Size" required>
+                                        <input type="text" id="project-size" name="productsize" class="form-control" placeholder="Size" >
                                     </div>
                                 </div>
 
@@ -31,18 +31,18 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="project-qty" class="form-label">Quantity</label>
-                                        <input type="text" id="project-qty" name="productqty" class="form-control" placeholder="Enter product Quantity" required>
+                                        <input type="text" id="project-qty" name="productqty" class="form-control" placeholder="Enter product Quantity" >
                                     </div>
                                     <div class="col">
                                         <label for="project-var" class="form-label">Variant</label>
-                                        <input type="text" id="project-var" name="productvar" class="form-control" placeholder="Enter product Variant" required>
+                                        <input type="text" id="project-var" name="productvar" class="form-control" placeholder="Enter product Variant" >
                                     </div>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="project-cat" class="form-label">Category</label>
-                                <select class="form-control select2" data-toggle="select2" name="prodCategory" required>
+                                <select class="form-control select2" data-toggle="select2" name="prodCategory" >
                                     <option>Select Category</option>
                                     {% for cat in category %}
                                     <option value="{{cat.id}}">{{ cat.name}}</option>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="project-subcat" class="form-label">Sub Category</label>
-                                <select class="form-control select2" data-toggle="select2" name="prodSubcategory" required>
+                                <select class="form-control select2" data-toggle="select2" name="prodSubcategory" >
                                     <option>Select SubCategory</option>
                                     {% for subcat in subcategory %}
                                     <option value="{{ subcat.id}}">{{ subcat.name}}</option>
@@ -68,7 +68,7 @@
 
                                 <div class="mb-3">
                                     <label for="product-image" class="form-label">Product image</label>
-                                    <input type="file" id="product-image" name="mainimage" class="form-control" required>
+                                    <input type="file" id="product-image" name="mainimage" class="form-control" >
                                 </div>
 
 
@@ -86,10 +86,10 @@
                                 <label for="product-image1" class="form-label">Alt. image</label>
                                 <input type="file" id="product-image1" name="prodimg3" class="form-control">
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">SKU</label>
-                                <input type="text" id="generate-sku" name="productSKU" class="form-control" value="" >
-                            </div>
+{#                            <div class="mb-3">#}
+{#                                <label class="form-label">SKU</label>#}
+{#                                <input type="text" id="generate-sku" name="productSKU" class="form-control" value="" >#}
+{#                            </div>#}
 
 
                         </div>
@@ -99,12 +99,12 @@
 
                             <div class="mb-3">
                                 <label for="project-abt" class="form-label">About</label>
-                                <textarea class="rtext2 form-control" name="productabout" required></textarea>
+                                <textarea class="rtext2 form-control" name="productabout" ></textarea>
                             </div>
 
                             <div class="mb-3">
                                 <label for="project-desc" class="form-label">Description</label>
-                                <textarea class="rtext form-control" name="productdescription" required></textarea>
+                                <textarea class="rtext form-control" name="productdescription" ></textarea>
 
                             </div>
                         </div>

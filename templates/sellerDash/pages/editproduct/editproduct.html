@@ -1,0 +1,134 @@
+{% load static %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="#" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="mb-3">
+                                <label for="prodname" class="form-label">Product Name</label>
+                                <input type="text" value="{{ singleproduct.name }}" name="productname" class="form-control" placeholder="Enter project name">
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="project-price" class="form-label">Price</label>
+                                        <input type="text" value="{{ singleproduct.price }}" name="productprice" class="form-control" placeholder="Enter product Price">
+                                    </div>
+                                    <div class="col">
+                                        <label for="project-size" class="form-label">Size</label>
+                                        <input type="text" value="{{ singleproduct.productdetail.size }}" name="productsize" class="form-control" placeholder="Size">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="project-qty" class="form-label">Quantity</label>
+                                        <input type="text" value="{{ singleproduct.quantity }}" name="productqty" class="form-control" placeholder="Enter product Quantity">
+                                    </div>
+                                    <div class="col">
+                                        <label for="project-var" class="form-label">Variant</label>
+                                        <input type="text" value="{{ singleproduct.productdetail.variant }}" name="productvar" class="form-control" placeholder="Enter product Variant">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="project-cat" class="form-label">Category</label>
+                                <select class="form-control select2" data-toggle="select2" name="prodCategory">
+                                    <option value="{{ singleproduct.category }}">{{ singleproduct.category }}"</option>
+                                    {% for cat in cat %}
+                                        <option value="{{ cat.id }}">{{ cat.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+                            <div class="mb-3">
+                                <label for="project-subcat" class="form-label">Sub Category</label>
+                                <select class="form-control select2" data-toggle="select2" name="prodSubcategory">
+                                    <option value="{{ singleproduct.subcategory }}">{{ singleproduct.subcategory }}"</option>
+                                    {% for subcat in subcat %}
+                                        <option value="{{ subcat.id }}">{{ subcat.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+
+                            <div class="mb-3 mt-3 mt-xl-0">
+                                <label for="prodImg" class="mb-0">Product Images</label>
+                                <p class="text-muted font-14">Recommended thumbnail size 300x300 (px).</p>
+
+                                <a href="#" class="ms-2 extraIMG">
+                                    <img src="{{ singleproduct.mainimage }}" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img">
+                                </a>
+
+
+                                <div class="mb-3">
+                                    <label for="product-image" class="form-label">Product image</label>
+                                    <input type="file" id="product-image" name="mainimage" class="form-control">
+                                </div>
+
+
+                            </div>
+                            {% for productimage in singleproduct.productimg %}
+                                <a href="#" class="ms-2 extraIMG">
+                                    <img src="{{ productimage.image }}" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img">
+                                </a>
+
+                            {% endfor %}
+                            <div class="mb-3">
+                                <label for="product-image1" class="form-label">Alt. image</label>
+                                <input type="file" id="product-image1" name="prodimg1" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="product-image1" class="form-label">Alt. image</label>
+                                <input type="file" id="product-image1" name="prodimg2" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="product-image1" class="form-label">Alt. image</label>
+                                <input type="file" id="product-image1" name="prodimg3" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">SKU</label>
+                                <input type="text" value="{{ singleproduct.productdetail.SKU }}" name="productSKU" class="form-control">
+                            </div>
+
+
+                        </div>
+                        <!-- end col-->
+
+                        <div class="col-xl-6">
+
+                            <div class="mb-3">
+                                <label for="project-abt" class="form-label">About</label>
+                                <textarea class="rtext2 form-control" name="productabout">{{ singleproduct.productdetail.about }}</textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="project-desc" class="form-label">Description</label>
+                                <textarea class="rtext form-control" name="productdescription">{{ singleproduct.productdetail.description }}</textarea>
+
+                            </div>
+                        </div>
+                        <!-- end col-->
+
+                        <div class="col-xl-6">
+                            <div class="mb-3 ">
+                                <input type="submit" class="btn btn-primary" value="ADD PRODUCT">
+                            </div>
+                        </div>
+                        <!-- end col-->
+
+                    </div>
+                    <!-- end row -->
+                </form>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+

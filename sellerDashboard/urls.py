@@ -1,20 +1,25 @@
 from django.urls import path
 
 from .views import *
+from account.views import sellerLogin,sellerregister
 
 urlpatterns = [
+    path('login/',sellerLogin,name='sellerlogin'),
+    path('register/', sellerregister,name='sellerregister'),
 
     path('dashboard/', dashboard, name='sellerdashboard'),
     path('products/', products, name='sellerproducts'),
 
     path('category/', category, name='sellercategory'),
-    path('category/<str:id>', del_category, name='deleteCategory'),
+    path('category/<str:id>/', categoryCrud, name='categorycrud'),
 
     path('subcategory/', subcategory, name='sellersubcategory'),
-    path('subcategory/<str:id>', del_subcategory, name='deletesubCategory'),
+    path('subcategory/<str:id>/', subcategoryCrud, name='subCategorycrud'),
 
     path('singleproduct/<str:id>/', singleproduct, name='sellersingleproducts'),
-    path('deleteproj/<str:id>/', delteproduct, name='deleteproduct'),
+    path('deleteprod/<str:id>/', delteproduct, name='deleteproduct'),
     path('addproduct/', addproduct, name='addproduct'),
+    path('editproduct/<str:id>/', editproduct, name='editproduct'),
+
 
 ]

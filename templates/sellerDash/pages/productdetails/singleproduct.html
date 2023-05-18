@@ -4,6 +4,15 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
+
+                    <div class="col-sm-4">
+                        <a href="{% url 'editproduct' viewproduct.id %}" class="btn btn-success mb-2"><i class="mdi mdi-square-edit-outline me-2"></i> Edit Product</a>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="text-sm-end">
+                            <a href="{% url 'deleteproduct' viewproduct.id %}"  class="btn btn-danger mb-2 me-1"><i class="mdi mdi-delete"></i> Delete</a>
+                        </div>
+                    </div>
                     <div class="col-lg-5">
                         <!-- Product image -->
                         <a href="#" class="text-center d-block mb-4">
@@ -27,7 +36,7 @@
                         <form class="ps-lg-4">
                             <!-- Product title -->
                             <h3 class="mt-0">{{ viewproduct.name }} <a href="javascript: void(0);" class="text-muted"><i class="mdi mdi-square-edit-outline ms-2"></i></a></h3>
-                            <p class="mb-1">{{ viewproduct.productdetail.about }}</p>
+                            <p class="mb-1">{% autoescape off %}{{ viewproduct.productdetail.about }} {% endautoescape %}</p>
 
 
                             <!-- Product stock -->
@@ -53,7 +62,7 @@
                             <!-- Product description -->
                             <div class="mt-4">
                                 <h6 class="font-14">Description:</h6>
-                                <p>{{ viewproduct.productdetail.description }}</p>
+                                <p>{% autoescape off %}{{ viewproduct.productdetail.description }} {% endautoescape %}</p>
                             </div>
 
                             <!-- Product information -->

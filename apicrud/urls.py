@@ -14,7 +14,7 @@ urlpatterns = [
     #
     # path('prod/', addproductDetails.as_view()),
 
-    path('products/', ProductsList.as_view()),
+    path('products/', ProductsList.as_view(),name='crudproduct'),
     path('products/<str:id>/', ProductDetail.as_view()),
 
 
