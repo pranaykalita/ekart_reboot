@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from products.models import *
@@ -8,10 +9,11 @@ from  account.models import CustomerUser,Customerdetail
 
 # Create your views here.
 
+@login_required(login_url='sellerlogin')
 def dashboard(request):
     return render(request, 'sellerDash/pages/home/index.html')
 
-
+@login_required(login_url='sellerlogin')
 def category(request):
     api_url = category_url
     category = get_category(api_url)
@@ -30,7 +32,7 @@ def category(request):
     }
     return render(request, 'sellerDash/pages/category/index.html', context)
 
-
+@login_required(login_url='sellerlogin')
 def subcategory(request):
     capi_url = category_url
     category = get_category(capi_url)
@@ -57,7 +59,7 @@ def subcategory(request):
     }
     return render(request, 'sellerDash/pages/subcategory/index.html', context)
 
-
+@login_required(login_url='sellerlogin')
 def categoryCrud(request, id):
     api_url = categorycrud_url + id + '/'
 
@@ -71,7 +73,7 @@ def categoryCrud(request, id):
 
     return redirect('sellercategory')
 
-
+@login_required(login_url='sellerlogin')
 def subcategoryCrud(request, id):
     api_url = subcategorycrud_url + id + '/'
 
@@ -85,7 +87,7 @@ def subcategoryCrud(request, id):
 
     return redirect('sellersubcategory')
 
-
+@login_required(login_url='sellerlogin')
 def products(request):
     api_url = product_url
     products = get_products(api_url)
@@ -95,7 +97,7 @@ def products(request):
     }
     return render(request, 'sellerDash/pages/products/index.html', context)
 
-
+@login_required(login_url='sellerlogin')
 def singleproduct(request, id):
     api_url = product_url + id
     singleproduct = single_products(api_url)
@@ -105,7 +107,7 @@ def singleproduct(request, id):
     }
     return render(request, 'sellerDash/pages/productdetails/index.html', context)
 
-
+@login_required(login_url='sellerlogin')
 def delteproduct(request, id):
     api_url = product_crud_url + id
     del_product = delete_product(api_url)
@@ -115,7 +117,7 @@ def delteproduct(request, id):
         print('Failed to delete')
     return redirect('sellerproducts')
 
-
+@login_required(login_url='sellerlogin')
 def addproduct(request):
     api_caturl = category_url
     api_subcaturl = subcategory_url
@@ -154,7 +156,8 @@ def addproduct(request):
             quantity=quantity,
             category=category,
             subcategory=subcategory,
-            mainimage=mainimg
+            mainimage=mainimg,
+            seller = seller
         )
         product.save()
         product_id = product.id
@@ -188,7 +191,7 @@ def addproduct(request):
     }
     return render(request, 'sellerDash/pages/addproduct/index.html', context)
 
-
+@login_required(login_url='sellerlogin')
 def editproduct(request, id):
     if request.method == "POST":
         name = request.POST.get("productname")

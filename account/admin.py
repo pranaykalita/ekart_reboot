@@ -7,7 +7,7 @@ class CustomerUserAdmin(admin.ModelAdmin):
     search_fields = ('email',)
     ordering = ('email',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('username','email', 'password')}),
         ('Personal info', {'fields': ()}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'is_seller', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),

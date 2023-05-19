@@ -15,7 +15,7 @@ class Product(models.Model):
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='subcategory')
     mainimage = models.ImageField(upload_to='products/productImg/')
     created_at = models.DateTimeField(auto_now_add=True)
-    seller = models.ForeignKey(Customerdetail, on_delete=models.CASCADE, related_name='seller')
+    seller = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, related_name='seller')
 
     # resize image to perfect fit
     def save(self, *args, **kwargs):

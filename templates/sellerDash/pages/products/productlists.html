@@ -9,9 +9,8 @@
                     </div>
                     <div class="col-sm-8">
                         <div class="text-sm-end">
-                            <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-cog-outline"></i></button>
+                            <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-square-edit-outline"></i></button>
                             <button type="button" class="btn btn-light mb-2 me-1">Import</button>
-                            <button type="button" class="btn btn-light mb-2">Export</button>
                         </div>
                     </div>
                     <!-- end col-->
@@ -29,7 +28,7 @@
                             </th>
                             <th class="all">Product</th>
                             <th>Category</th>
-                            <th>Sub Category</th>
+                            <th>Seller</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Status</th>
@@ -48,7 +47,7 @@
                                 <td>
                                     <img src="{{ product.mainimage }}" alt="contact-img" title="contact-img" class="rounded me-3" height="48">
                                     <p class="m-0 d-inline-block align-middle font-16">
-                                        <a href="apps-ecommerce-products-details.html" class="text-body">{{ product.name }}</a>
+                                        <a href="{% url 'sellersingleproducts' product.id %}" class="text-body">{{ product.name }}</a>
                                         <br>
                                         <span class="text-warning">{{ product.productdetail.SKU }}</span>
                                     </p>
@@ -57,7 +56,7 @@
                                     {{ product.category }}
                                 </td>
                                 <td>
-                                    {{ product.subcategory }}
+                                    {{ product.seller }}
                                 </td>
                                 <td>
                                     ₹ {{ product.price }}

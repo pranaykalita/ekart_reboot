@@ -3,29 +3,44 @@
     <li class="side-nav-title side-nav-item">Main</li>
 
     <li class="side-nav-item">
-        <a data-bs-toggle="collapse" href="#sidebarDashboards" class="side-nav-link">
+        <a href="{% url 'sellerdashboard' %}" class="side-nav-link">
             <i class="uil-home-alt"></i>
-            <span class="badge bg-success float-end">4</span>
-            <span> Dashboards </span>
+            <span> Dashboard </span>
         </a>
-
     </li>
 
     <li class="side-nav-title side-nav-item">managements</li>
-
     <li class="side-nav-item">
-        <a data-bs-toggle="collapse show" href="#sidebarTasks" aria-expanded="true" aria-controls="sidebarTasks" class="side-nav-link">
-            <i class="uil-clipboard-alt"></i>
-            <span> Products </span>
+        <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+            <i class="uil-store"></i>
+            <span> Ecommerce </span>
             <span class="menu-arrow"></span>
         </a>
-        <div class="collapse show" id="sidebarTasks">
+        <div class="collapse" id="sidebarEcommerce">
             <ul class="side-nav-second-level">
                 <li>
-                    <a href="{% url 'sellerproducts' %}">List Products</a>
+                    <a href="{% url 'sellerproducts' %}">Products</a>
                 </li>
                 <li>
                     <a href="{% url 'addproduct' %}">Add Products</a>
+                </li>
+
+            </ul>
+        </div>
+    </li>
+    <li class="side-nav-item">
+        <a data-bs-toggle="collapse" href="#sidebarEcommerce2" aria-expanded="false" aria-controls="sidebarEcommerce2" class="side-nav-link">
+            <i class="uil-clipboard-alt"></i>
+            <span> Category </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse" id="sidebarEcommerce2">
+            <ul class="side-nav-second-level">
+                <li>
+                    <a href="{% url 'sellercategory' %}">List Category</a>
+                </li>
+                <li>
+                    <a href="{% url 'sellersubcategory' %}">List SubCategory</a>
                 </li>
             </ul>
         </div>
@@ -38,23 +53,6 @@
         </a>
     </li>
 
-    <li class="side-nav-item">
-        <a data-bs-toggle="collapse show" href="#sidebarTasks" aria-expanded="true" aria-controls="sidebarTasks" class="side-nav-link">
-            <i class="uil-clipboard-alt"></i>
-            <span> Category </span>
-            <span class="menu-arrow"></span>
-        </a>
-        <div class="collapse show" id="sidebarTasks">
-            <ul class="side-nav-second-level">
-                <li>
-                    <a href="{% url 'sellercategory' %}">List Category</a>
-                </li>
-                <li>
-                    <a href="{% url 'sellersubcategory' %}">List SubCategory</a>
-                </li>
-            </ul>
-        </div>
-    </li>
 
     <li class="side-nav-item">
         <a href="#" class="side-nav-link">
