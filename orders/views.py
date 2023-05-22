@@ -71,3 +71,4 @@ def checkout(request):
         return redirect('fdashboardorder')
 
     return render(request, 'frontend/pages/checkout/index.html', context)
+# test
