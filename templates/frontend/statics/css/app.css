@@ -2803,6 +2803,7 @@ input::-ms-clear {
     -ms-flex-align: center;
         align-items: center; }
   .table-p__img-wrap {
+    overflow: hidden;
     display: inline-block;
     vertical-align: middle;
     background-color: #f5f5f5;

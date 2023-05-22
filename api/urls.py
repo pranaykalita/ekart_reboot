@@ -19,8 +19,11 @@ urlpatterns = [
     path('products/<int:id>/', ProductRetrive.as_view(), name='productsingleAPI'),
 
     # GET /api/cart/
-    path('cart/', CartList.as_view(), name='cartlistAPI'),
+    path('cart/', cartListView.as_view(), name='cartlist'),
     # GET /api/cart/cabcf175-95d5-417a-9ecb-c829af52f7ce/
-    path('cart/<str:id>/', CartRetrive.as_view(), name='customercartAPI'),
+    path('cart/<str:id>/<str:customer>/', cartRetriveView.as_view(), name='cartdatalist'),
+
+
+    path('orders/', orderlist.as_view(), name='orderapi'),
 
 ]

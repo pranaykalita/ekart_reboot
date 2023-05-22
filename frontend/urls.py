@@ -1,7 +1,9 @@
 from django.urls import path
 
-from .views import *
 from account.views import *
+from cart.views import *
+from orders.views import checkout
+from .views import *
 
 urlpatterns = [
     path('', homepage, name='fhomepage'),
@@ -19,7 +21,11 @@ urlpatterns = [
     path('products/', products, name='fproductpage'),
     path('product/<str:id>/', singleproduct, name='fsingleproduct'),
 
-
     path('cart/', customercart, name='fcustomercart'),
-    path('checkout/', checkout, name='fcustomercheckout'),
+    path('addtocart/<int:product>', AddtoCart, name='faddtocart'),
+
+    path('deletecart/', deltecart, name="fdeltecart"),
+    path('delete/<int:itemID>', removecartItem, name="fcartitemrmv"),
+
+    path('checkout/', checkout, name='fcheckout'),
 ]

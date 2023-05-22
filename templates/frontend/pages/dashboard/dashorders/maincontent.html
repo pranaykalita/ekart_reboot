@@ -1,3 +1,4 @@
+{% load static %}
 <!--====== Section 2 ======-->
 <div class="u-s-p-b-60">
 
@@ -6,52 +7,7 @@
         <div class="dash">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-12">
-
-                        <!--====== Dashboard Features ======-->
-                        <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
-                            <div class="dash__pad-1">
-
-                                <ul class="dash__f-list">
-
-                                    <li>
-
-                                        <a class="dash-active" href="{% url 'fdashboard' %}">My Profile</a></li>
-
-                                    <li>
-
-                                        <a href="{% url 'fdashboardorder' %} ">My Orders</a></li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
-                            <div class="dash__pad-1">
-                                <ul class="dash__w-list">
-                                    <li>
-                                        <div class="dash__w-wrap">
-
-                                            <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
-
-                                            <span class="dash__w-text">4</span>
-
-                                            <span class="dash__w-name">Orders Placed</span></div>
-                                    </li>
-                                    <li>
-                                        <div class="dash__w-wrap">
-
-                                            <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
-
-                                            <span class="dash__w-text">0</span>
-
-                                            <span class="dash__w-name">Cancel Orders</span></div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <!--====== End - Dashboard Features ======-->
-                    </div>
+                    {% include '../commonsidecounter.html' %}
                     <div class="col-lg-9 col-md-12">
                         <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
                             <div class="dash__pad-2">
@@ -61,12 +17,12 @@
 
                                 <div class="m-order__list">
                                      <!--====== Dashboard orders ======-->
+                                    {% for itm in orderdetail %}
                                     <div class="m-order__get">
                                         <div class="manage-o__header u-s-m-b-30">
                                             <div class="dash-l-r">
                                                 <div>
-                                                    <div class="manage-o__text-2 u-c-secondary">Order #305423126</div>
-                                                    <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 09:08:37</div>
+                                                    <div class="manage-o__text u-c-silver">Placed on {{ itm.created_at}}</div>
                                                 </div>
                                                 <div>
                                                     <div class="dash__link dash__link--brand">
@@ -79,26 +35,28 @@
                                             <div class="description__container">
                                                 <div class="description__img-wrap">
 
-                                                    <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
-                                                <div class="description-title">Yellow Wireless Headphone</div>
+                                                    <img class="u-img-fluid" src="{% static 'images/ordericon.png' %}" alt=""></div>
+
+                                                <div class="description-title">{{ itm.orderno}}</div>
                                             </div>
                                             <div class="description__info-wrap">
                                                 <div>
 
-                                                    <span class="manage-o__badge badge--processing">Processing</span></div>
+                                                    <span class="manage-o__badge badge--processing"> {{ itm.orderstatus }}</span></div>
                                                 <div>
 
                                                                 <span class="manage-o__text-2 u-c-silver">Quantity:
 
-                                                                    <span class="manage-o__text-2 u-c-secondary">1</span></span></div>
+                                                                    <span class="manage-o__text-2 u-c-secondary">{{ itm.items|length }}</span></span></div>
                                                 <div>
 
                                                                 <span class="manage-o__text-2 u-c-silver">Total:
 
-                                                                    <span class="manage-o__text-2 u-c-secondary">$16.00</span></span></div>
+                                                                    <span class="manage-o__text-2 u-c-secondary">Rs {{ itm.subtotal }}</span></span></div>
                                             </div>
                                         </div>
                                     </div>
+                                    {% endfor %}
                                      <!--====== Dashboard order END ======-->
                                 </div>
                             </div>

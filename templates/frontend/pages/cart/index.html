@@ -6,9 +6,12 @@
     <!--====== App Content ======-->
     <div class="app-content">
 
-{#        {% include './slider.html' %}#}
-
-        {% include './maincontent.html' %}
+        {#        {% include './slider.html' %}#}
+        {% if cartitems.items|length == 0 %}
+            {% include './emptycart.html' %}
+        {% else %}
+            {% include './maincontent.html' %}
+        {% endif %}
 
     </div>
     <!--====== End - App Content ======-->

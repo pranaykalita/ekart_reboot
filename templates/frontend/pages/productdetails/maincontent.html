@@ -9,11 +9,11 @@
                     <ul class="pd-breadcrumb__list">
                         <li class="has-separator">
 
-                            <a href="">{{ product.category.name }}</a></li>
+                            <a href="{% url 'fproductpage' %}?filter={{ product.category.name}}">{{ product.category.name }}</a></li>
 
                         <li class="is-marked">
 
-                            <a href="">{{ product.subcategory.name }}</a></li>
+                            <a href="{% url 'fproductpage' %}?filter={{ product.subcategory.name}}">{{ product.subcategory.name }}</a></li>
                     </ul>
                 </div>
                 <!--====== End - Product Breadcrumb ======-->
@@ -87,7 +87,8 @@
 
 
                     <div class="u-s-m-b-15">
-                        <form class="pd-detail__form">
+                        <form class="pd-detail__form" method="post" action="{% url 'faddtocart' product=product.id %}">
+                            {% csrf_token %}
                             <div class="u-s-m-b-15">
 
                                 <span>Size:</span>
@@ -113,7 +114,7 @@
 
                                         <span class="input-counter__minus fas fa-minus"></span>
 
-                                        <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000">
+                                        <input class="input-counter__text input-counter--text-primary-style" name="qtybtn" type="text" value="1" data-min="1" data-max="1000">
 
                                         <span class="input-counter__plus fas fa-plus"></span></div>
                                     <!--====== End - Input Counter ======-->

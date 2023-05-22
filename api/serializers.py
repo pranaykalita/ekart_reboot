@@ -3,7 +3,7 @@ from rest_framework import serializers
 from cart.models import *
 from category.models import *
 from products.models import *
-
+from orders.models import *
 
 ###################### Accounts ######################
 
@@ -90,40 +90,50 @@ class singleProductSerializer(serializers.ModelSerializer):
 
 
 ###################### CART ######################
-# Product for Cart
-class SimpelItemdetailserializer(serializers.ModelSerializer):
+
+class CartProductsSerializer(serializers.ModelSerializer):
+    category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
+    subcategory = serializers.SlugRelatedField(slug_field='name', queryset=Subcategory.objects.all())
+    productdetail = ProductdetailsSerializer()
     class Meta:
         model = Product
-        fields = ['id', 'price', 'mainimage']
+        fields = ('id', 'name', 'price', 'mainimage','category','subcategory','productdetail')
 
-
-# cart
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
-        fields = ['id', 'customer']
-
-
-# cart Items
-class CartItemsSerialzier(serializers.ModelSerializer):
-    product = SimpelItemdetailserializer()
-
+        fields = '__all__'
+class cartitemsSerializer(serializers.ModelSerializer):
+    product = CartProductsSerializer(many=False)
+    itemtotal = serializers.SerializerMethodField(method_name="total")
     class Meta:
-        model = CartItem
-        fields = ['product', 'quantity', 'total']
+        model =CartItem
+        fields = ['id', 'product', 'quantity', 'itemtotal']
 
+    def total(self,cartitems: CartItem):
+        total = cartitems.quantity * cartitems.product.price
+        return total
 
 class CartDataSerializer(serializers.ModelSerializer):
-    items = CartItemsSerialzier(many=True)
-    subtotal = serializers.SerializerMethodField(method_name='sub_total')
-
+    id = serializers.UUIDField(read_only=True)
+    items = cartitemsSerializer(many=True)
+    Subtotal = serializers.SerializerMethodField(method_name='grandtotal')
     class Meta:
         model = Cart
-        fields = ['id', 'customer', 'items', 'subtotal']
+        fields = ['id', 'customer', 'items', "Subtotal"]
 
-    def sub_total(self, cart: Cart):
+    def grandtotal(self, cart: Cart):
         items = cart.items.all()
         sum = 0
         for item in items:
             sum += item.quantity * item.product.price
         return sum
+
+####################
+
+
+class Orderserializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    class Meta:
+        model = Order
+        fields = '__all__'

@@ -1,7 +1,9 @@
 from django.db.models import Q
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import *
 from .tests import MultipleFieldLookupORMixin
@@ -77,20 +79,34 @@ class ProductRetrive(RetrieveModelMixin, GenericAPIView):
 
 ##################### CART #####################
 
-# Carts
-class CartList(ListModelMixin, GenericAPIView):
-    queryset = Cart.objects.all()
+class cartListView(ListModelMixin, CreateModelMixin, GenericAPIView):
+    queryset =Cart.objects.all()
     serializer_class = CartSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
-# display cart Items
-class CartRetrive(RetrieveModelMixin, GenericAPIView):
-    queryset = Cart.objects.all()
+    def perform_create(self, serializer):
+        serializer.save(customer=self.request.user)
+
+
+class cartRetriveView(RetrieveModelMixin, MultipleFieldLookupORMixin, GenericAPIView):
+    queryset =Cart.objects.all()
     serializer_class = CartDataSerializer
-    lookup_field = 'id'
+    lookup_field = lookup_fields = ('id', 'customer')
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
+
+
+class orderlist(ListModelMixin,GenericAPIView):
+    queryset = Order.objects.all()
+    serializer_class = Orderserializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)

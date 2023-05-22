@@ -1,10 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
-from django.shortcuts import render, redirect
 
-from account.models import CustomerUser,Customerdetail
+from cart.views import *
+from orders.models import *
 # Create your views here.
 from .apicall import *
 from .apiurl import *
@@ -65,11 +63,17 @@ def dashboard(request):
         customer_detail = Customerdetail.objects.get(customeruser=customerID)
     except Customerdetail.DoesNotExist:
         customer_detail = "Null"
-    context= {'customer': customer, 'customer_detail': customer_detail}
-    return render(request,'frontend/pages/dashboard/index.html',context)
+
+    addr = ip(request)
+    url = f"http://127.0.0.1:8000/api/orders/"
+    resp = requests.get(url)
+    orders = resp.json()
+    context = {'customer': customer, 'customer_detail': customer_detail, 'orderdetail': orders}
+    return render(request, 'frontend/pages/dashboard/index.html', context)
+
 
 @login_required(login_url='fsignin')
-def editprofile(request,id):
+def editprofile(request, id):
     customer = CustomerUser.objects.get(id=id)
     try:
         customer_detail = Customerdetail.objects.get(customeruser=id)
@@ -90,12 +94,15 @@ def editprofile(request,id):
         customer_detail.mobile = phone
         customer_detail.save()
         return redirect('fdashboard')
-
-    context = {'customer': customer, 'customer_detail': customer_detail}
+    url = f"http://127.0.0.1:8000/api/orders/"
+    resp = requests.get(url)
+    orders = resp.json()
+    context = {'customer': customer, 'customer_detail': customer_detail,'orderdetail': orders}
     return render(request, 'frontend/pages/dashboard/dasheditprofile/index.html', context)
 
+
 @login_required(login_url='fsignin')
-def editpassword(request,id):
+def editpassword(request, id):
     customer = CustomerUser.objects.get(id=id)
     try:
         customer_detail = Customerdetail.objects.get(customeruser=id)
@@ -103,7 +110,7 @@ def editpassword(request,id):
         customer_detail = "Null"
 
     if request.method == 'POST':
-        current_password  = request.POST.get('reg-cpass')
+        current_password = request.POST.get('reg-cpass')
         new_password = request.POST.get('reg-newpass')
 
         if check_password(current_password, customer.password):
@@ -115,22 +122,22 @@ def editpassword(request,id):
             return redirect('flogout')
         else:
             messages.error(request, 'Incorrect current password. Please try again.')
-
-    context = {'customer': customer, 'customer_detail': customer_detail,}
+    url = f"http://127.0.0.1:8000/api/orders/"
+    resp = requests.get(url)
+    orders = resp.json()
+    context = {'customer': customer, 'customer_detail': customer_detail, 'orderdetail': orders }
     return render(request, 'frontend/pages/dashboard/dasheditpass/index.html', context)
+
 
 @login_required(login_url='fsignin')
 def dashboardorders(request):
-    return render(request,'frontend/pages/dashboard/dashorders/index.html')
+    url = "http://127.0.0.1:8000/api/orders/"
+    response = requests.get(url)
+    items = response.json()
+    context = {'orderdetail': items}
+    return render(request, 'frontend/pages/dashboard/dashorders/index.html', context)
+
 
 @login_required(login_url='fsignin')
-def dashboardorderdetails(request,id):
-    return  render(request,'frontend/pages/dashboard/dashorderdetails/index.html')
-
-@login_required(login_url='fsignin')
-def customercart(request):
-    return render(request,'frontend/pages/cart/index.html')
-
-@login_required(login_url='fsignin')
-def checkout(request):
-    return render(request,'frontend/pages/checkout/index.html')
+def dashboardorderdetails(request):
+    return render(request, 'frontend/pages/dashboard/dashorderdetails/index.html')
