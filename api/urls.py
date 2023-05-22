@@ -13,6 +13,7 @@ urlpatterns = [
     path('subcategory/', SubcategoryList.as_view(), name='subcategoryAPI'),
 
     # GET /api/products/
+    # 127.0.0.1:8000/api/products/?filter=Fashion
     path('products/', ProductList.as_view(), name='productslistAPI'),
     # GET /api/products/1/
     path('products/<int:id>/', ProductRetrive.as_view(), name='productsingleAPI'),

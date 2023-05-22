@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'sellersubcategory' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row mb-1">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <div class="mb-3">
+                                    <label for="project-cat" class="form-label">Category</label>
+                                    <select class="form-control select2" data-toggle="select2" name="prodCategory" required>
+                                        <option>Select Category</option>
+                                        {% for cat in category %}
+                                            <option value="{{ cat.name }}">{{ cat.name }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                </div>
+
+                                <label for="catname" class="form-label">Sub CategoryName</label>
+                                <input type="text" class="form-control" name="subcatname" placeholder="Enter New Sub Category name" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-danger mb-2" value="SAVE">
+                            <a href="{% url 'sellercategory' %}" class="btn btn-primary float-end mb-2">Add Category</a>
+                        </div>
+                        <!-- end col-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-centered w-100 dt-responsive nowrap" id="basic-datatable">
+                        <thead class="table-light">
+                        <tr>
+
+                            <th class="all">Category</th>
+                            <th>Sub Category</th>
+                            <th style="width: 85px;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for sub in subcategory %}
+                            <tr>
+
+                                <td>
+                                    {{ sub.category }}
+                                </td>
+                                <td>
+                                    {{ sub.name }}
+                                </td>
+
+                                <td class="table-action">
+                                    <button type="button" class="btn action-icon" data-bs-toggle="modal" data-bs-target="#exampleModal{{ sub.id }}"><i class="mdi
+                                    mdi-square-edit-outline"></i></button>
+                                    {% include './editsubcategory.html' %}
+                                    <a href="{% url 'subCategorycrud' sub.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end card-body-->
+        </div>
+        <!-- end card-->
+    </div>
+    <!-- end col -->
+</div>

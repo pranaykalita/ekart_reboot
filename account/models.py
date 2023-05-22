@@ -61,6 +61,8 @@ class CustomerUser(AbstractUser, PermissionsMixin):
     email = models.EmailField(unique=True, max_length=254)
     username = models.CharField(unique=True, max_length=255)
     password = models.CharField(max_length=255)
+    firstname = models.CharField(max_length=255,default=None,null=True)
+    lastname = models.CharField(max_length=255,default=None,null=True)
 
     # default Create Customer
     is_staff = models.BooleanField(default=False)

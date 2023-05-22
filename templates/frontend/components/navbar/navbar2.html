@@ -1,0 +1,95 @@
+<!--====== Nav 2 ======-->
+<nav class="secondary-nav-wrapper">
+    <div class="container">
+
+        <!--====== Secondary Nav ======-->
+        <div class="secondary-nav">
+
+
+            <!--====== End - Dropdown Main plugin ======-->
+
+
+            <!--====== Dropdown Main plugin ======-->
+            <div class="menu-init" id="navigation2">
+
+                <button class="btn btn--icon toggle-button toggle-button--white fas fa-bars" style="color:white !important;" type="button"> Menu</button>
+
+                <!--====== Menu ======-->
+                <div class="ah-lg-mode">
+
+                    <span class="ah-close">✕ Close</span>
+
+                    <!--====== List ======-->
+                    <ul class="ah-list ah-list--design2 ah-list--link-color-white">
+                        <li>
+
+                            <a href="{% url 'fproductpage' %}">All Products</a>
+                        </li>
+                        {% for category in allcategory %}
+                            <li class="has-dropdown">
+
+                                <a>{{ category.name }}<i class="fas fa-angle-down u-s-m-l-6"></i></a>
+
+                                <!--====== Dropdown ======-->
+
+                                <span class="js-menu-toggle"></span>
+
+
+                                        <ul style="width:200px">
+                                    {% for sub in category.subcategory %}
+                                        <li>
+
+                                            <a href="{% url 'fproductpage' %}?filter={{ sub.name }}">{{ sub.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                        </ul>
+
+
+                                <!--====== End - Dropdown ======-->
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <!--====== End - List ======-->
+                </div>
+                <!--====== End - Menu ======-->
+            </div>
+            <!--====== End - Dropdown Main plugin ======-->
+
+
+            <!--====== Dropdown Main plugin ======-->
+            <div class="menu-init" id="navigation3">
+
+                <button class="btn btn--icon toggle-button toggle-button--white fas fa-shopping-bag toggle-button-shop" type="button"></button>
+
+                <span class="total-item-round">2</span>
+
+                <!--====== Menu ======-->
+                <div class="ah-lg-mode">
+
+                    <span class="ah-close">✕ Close</span>
+
+                    <!--====== List ======-->
+                    <ul class="ah-list ah-list--design1 ah-list--link-color-white">
+                        <li>
+
+                            <a href="{% url 'fhomepage' %}"><i class="fas fa-home u-c-brand"></i></a>
+                        </li>
+
+                        <li>
+
+                            <a class="mini-cart-shop-link" href="{% url 'fcustomercart' %}"><i class="fas fa-shopping-bag"></i>
+
+                                <span class="total-item-round">2</span></a>
+
+                        </li>
+                    </ul>
+                    <!--====== End - List ======-->
+                </div>
+                <!--====== End - Menu ======-->
+            </div>
+            <!--====== End - Dropdown Main plugin ======-->
+        </div>
+        <!--====== End - Secondary Nav ======-->
+    </div>
+</nav>
+<!--====== End - Nav 2 ======-->

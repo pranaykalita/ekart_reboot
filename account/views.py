@@ -2,9 +2,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 
 from .models import *
-
+from frontend.views import allcategory
 # Create your views here.
 # seller Login:
+
 def sellerLogin(request):
     if request.user.is_authenticated:
         return redirect('sellerdashboard')
@@ -44,3 +45,51 @@ def sellerregister(request):
 
         return redirect('sellerlogin')
     return render(request, 'sellerDash/pages/login_registration/register.html')
+
+def customersignup(request):
+    if request.user.is_authenticated:
+        return redirect('fhomepage')
+    msg = ''
+    if request.method == "POST":
+        firstname = request.POST["reg-fname"]
+        lastname = request.POST["reg-lname"]
+        username = request.POST["reg-username"]
+        email = request.POST["reg-email"]
+        password = request.POST["reg-password"]
+        print(firstname, lastname, username, email, password)
+        customer = CustomerUser.objects.create_customer(
+            email=email,
+            password=password,
+            username=username,
+            firstname=firstname,
+            lastname=lastname
+        )
+        if customer:
+            success = True
+            msg = 'Registration successful!'  # Add success message
+    categories = allcategory()
+    return render(request, 'frontend/pages/signup/index.html', {'success': msg, 'allcategory': categories})
+
+
+def customerlogin(request):
+    if request.user.is_authenticated:
+        return redirect('fhomepage')
+    else:
+        if request.method == "POST":
+            email = request.POST["login-email"]
+            password = request.POST["login-password"]
+            customer = authenticate(request, email=email, password=password)
+            if customer is not None and customer.is_customer and customer.is_active == True:
+                login(request, customer)
+                request.session['customerID'] = customer.id
+                request.session['customerUsername'] = customer.username
+                return redirect('fhomepage')
+            else:
+                return redirect('fsignin')
+    categories = allcategory()
+    return render(request, 'frontend/pages/signin/index.html', {'allcategory': categories})
+
+
+def custoemrlogout(request):
+    logout(request)
+    return redirect('fsignin')

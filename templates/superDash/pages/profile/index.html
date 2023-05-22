@@ -1,0 +1,25 @@
+﻿{% extends 'superDash/base/base.html' %}
+
+{% load  static %}
+
+{% block content %}
+    <div class="content-page">
+        <!-- content Start -->
+        <div class="content">
+            <!-- Topbar Start -->
+            {% include '../../components/topbar/topbar.html' %}
+            <!-- end Topbar -->
+
+            <!-- Start Content-->
+            {% include './dashboard.html' %}
+            <!-- container -->
+
+        </div>
+        <!-- content -->
+
+        <!-- Footer Start -->
+        {% include '../../components/footer/footer.html' %}
+        <!-- end Footer -->
+
+    </div>
+{% endblock %}

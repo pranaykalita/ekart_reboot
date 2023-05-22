@@ -46,8 +46,13 @@ INSTALLED_APPS = [
     'products',
 
     'sellerDashboard',
+    'superDashboard',
+    'frontend',
+
     'rest_framework',
 ]
+
+
 AUTH_USER_MODEL = 'account.CustomerUser'
 
 MIDDLEWARE = [
@@ -127,6 +132,7 @@ STATIC_URL = 'statics/'
 STATIC_ROOT = BASE_DIR / 'statics'
 STATICFILES_DIRS = [
     'templates/sellerDash/statics/',
+    'templates/frontend/statics/',
 ]
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'

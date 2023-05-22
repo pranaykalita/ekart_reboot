@@ -1,22 +1,27 @@
 import requests
 
+
 def get_category(api_url):
     response = requests.get(api_url)
     cat = response.json()
     return cat
+
 
 def get_subcategory(api_url):
     response = requests.get(api_url)
     cat = response.json()
     return cat
 
-def add_category(api_url,json_data):
+
+def add_category(api_url, json_data):
     response = requests.put(api_url, data=json_data)
     if response.status_code == 201:
         return True
     else:
         return False
-def add_subcategory(api_url,json_data):
+
+
+def add_subcategory(api_url, json_data):
     response = requests.put(api_url, data=json_data)
     if response.status_code == 201:
         print(response)
@@ -24,6 +29,7 @@ def add_subcategory(api_url,json_data):
     else:
         print(response)
         return False
+
 
 def delete_category(api_url):
     response = requests.delete(api_url)
@@ -32,6 +38,7 @@ def delete_category(api_url):
     else:
         return False
 
+
 def delete_subcategory(api_url):
     response = requests.delete(api_url)
     if response.status_code == 201:
@@ -39,20 +46,21 @@ def delete_subcategory(api_url):
     else:
         return False
 
-def update_category(api_url,json_data):
+
+def update_category(api_url, json_data):
     response = requests.patch(api_url, data=json_data)
     if response.status_code == 201:
         return True
     else:
         return False
 
-def update_subcategory(api_url,json_data):
+
+def update_subcategory(api_url, json_data):
     response = requests.patch(api_url, data=json_data)
     if response.status_code == 201:
         return True
     else:
         return False
-
 
 
 def get_subcategory(api_url):
@@ -60,15 +68,20 @@ def get_subcategory(api_url):
     subcategory = response.json()
     return subcategory
 
-def get_products(api_url):
-    response = requests.get(api_url)
+
+def get_products(api_url,seller_id):
+    params = {'seller_id': seller_id}
+    response = requests.get(api_url, params=params)
     products = response.json()
+    print(products)
     return products
+
 
 def single_products(api_url):
     response = requests.get(api_url)
     singleproduct = response.json()
     return singleproduct
+
 
 def delete_product(api_url):
     response = requests.delete(api_url)
@@ -77,7 +90,8 @@ def delete_product(api_url):
     else:
         return False
 
-def add_product(api_url,data):
+
+def add_product(api_url, data):
     response = requests.put(api_url, data=data, headers={'Content-Type': 'application/json'})
     if response.status_code == 201:
         return True

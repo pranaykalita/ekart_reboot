@@ -1,4 +1,6 @@
+import requests
 from rest_framework import serializers
+from rest_framework.permissions import IsAuthenticated
 
 from account.models import *
 from products.models import *
@@ -74,22 +76,6 @@ class SubCategorySerializer(serializers.ModelSerializer):
 # Products Serialziers
 ##################################################
 
-# class ProductSerializer(serializers.ModelSerializer):
-#     category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
-#     subcategory = serializers.SlugRelatedField(slug_field='name', queryset=Subcategory.objects.all())
-#
-#     class Meta:
-#         model = Product
-#         fields = '__all__'
-#
-#     def create(self, validated_data):
-#         name = validated_data.pop('name')
-#         product = Product(**validated_data)
-#         product.name = name
-#         product.save()
-#         return product
-
-
 class ProductDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Productdetails
@@ -103,13 +89,17 @@ class ProductimageSerializer(serializers.ModelSerializer):
 
 
 class productsSerialzier(serializers.ModelSerializer):
+    category=serializers.SlugRelatedField(slug_field='name',queryset=Category.objects.all())
     productdetail = ProductDetailSerializer()
     productimg = ProductimageSerializer(many=True, required=False)
     mainimage = serializers.ImageField(required=False)
+    seller = serializers.SlugRelatedField(slug_field='username',queryset=CustomerUser.objects.all())
+    sellerid = serializers.IntegerField(source='seller.id')
 
     class Meta:
         model = Product
         fields = '__all__'
+
 
     def create(self, validated_data):
         name = validated_data.pop('name')

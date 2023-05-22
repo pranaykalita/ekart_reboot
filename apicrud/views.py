@@ -119,33 +119,14 @@ class SubcategoryDetail(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin,
 #########################################
 # product CRUD
 #########################################
-#
-# class ProductList(ListModelMixin, CreateModelMixin, GenericAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#
-#     def get(self, request, *args, **kwargs):
-#         return self.list(request, *args, **kwargs)
-#
-#     def put(self, request, *args, **kwargs):
-#         return self.create(request, *args, **kwargs)
-#
-#
-# class ProductData(RetrieveModelMixin, DestroyModelMixin, GenericAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#     lookup_field = 'name'
-#
-#     def get(self, request, *args, **kwargs):
-#         return self.retrieve(request, *args, **kwargs)
-#
-#     def delete(self, request, *args, **kwargs):
-#         return self.destroy(request, *args, **kwargs)
-
 
 class ProductsList(ListModelMixin,CreateModelMixin,GenericAPIView):
     queryset = Product.objects.all()
     serializer_class = productsSerialzier
+
+    def get_queryset(self):
+        seller_id = self.request.query_params.get('seller_id')
+        return Product.objects.filter(seller_id=seller_id)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'sellercategory' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row mb-1">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="catname" class="form-label">CategoryName</label>
+                                <input type="text" class="form-control" name="catname" placeholder="Enter New Category name" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-danger mb-2" value="SAVE">
+                            <a href="{% url 'sellersubcategory' %}" class="btn btn-primary float-end mb-2">Add SubCategory</a>
+                        </div>
+                        <!-- end col-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-centered w-100 dt-responsive nowrap" id="basic-datatable">
+                        <thead class="table-light">
+                        <tr>
+
+                            <th class="all">Category</th>
+                            <th style="width: 85px;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for category in category %}
+                            <tr>
+
+                                <td>
+                                    {{ category.name }}
+                                </td>
+
+                                <td class="table-action">
+                                    <button type="button" class="btn action-icon" data-bs-toggle="modal" data-bs-target="#exampleModal{{ category.id }}"><i class="mdi
+                                    mdi-square-edit-outline"></i></button>
+                                    {% include './editcategory.html' %}
+                                    <a href="{% url 'categorycrud' category.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end card-body-->
+        </div>
+        <!-- end card-->
+    </div>
+    <!-- end col -->
+</div>

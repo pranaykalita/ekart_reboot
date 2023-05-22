@@ -41,7 +41,7 @@
                             <div class="mb-3">
                                 <label for="project-cat" class="form-label">Category</label>
                                 <select class="form-control select2" data-toggle="select2" name="prodCategory">
-                                    <option value="{{ singleproduct.category }}">{{ singleproduct.category }}"</option>
+                                    <option value="{{ singleproduct.category.id }}">{{ singleproduct.category.name }}</option>
                                     {% for cat in cat %}
                                         <option value="{{ cat.id }}">{{ cat.name }}</option>
                                     {% endfor %}
@@ -51,7 +51,7 @@
                             <div class="mb-3">
                                 <label for="project-subcat" class="form-label">Sub Category</label>
                                 <select class="form-control select2" data-toggle="select2" name="prodSubcategory">
-                                    <option value="{{ singleproduct.subcategory }}">{{ singleproduct.subcategory }}"</option>
+                                    <option value="{{ singleproduct.subcategory.id }}">{{ singleproduct.subcategory.name }}</option>
                                     {% for subcat in subcat %}
                                         <option value="{{ subcat.id }}">{{ subcat.name }}</option>
                                     {% endfor %}

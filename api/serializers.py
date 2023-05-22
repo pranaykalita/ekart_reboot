@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from account.models import *
 from cart.models import *
+from category.models import *
 from products.models import *
 
 
@@ -64,24 +64,29 @@ class ProductimagesSerializer(serializers.ModelSerializer):
 
 # product Images
 class ProductSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField()
-    subcategory = serializers.StringRelatedField()
+    category = categoryOnlySerializer()
+    subcategory = subcategorySerializer()
+
     productdetail = ProductdetailsSerializer()
-    seller = serializers.SlugRelatedField(slug_field='username',queryset=CustomerUser.objects.all())
+    seller = serializers.SlugRelatedField(slug_field='username', queryset=CustomerUser.objects.all())
+    sellerid = serializers.IntegerField(source='seller.id')
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'price', 'quantity', 'category', 'subcategory','seller', 'productdetail', 'mainimage']
+        fields = ['id', 'name', 'price', 'quantity', 'category', 'subcategory', 'seller',
+                  'sellerid', 'productdetail', 'mainimage']
 
 
 # Single Product
 class singleProductSerializer(serializers.ModelSerializer):
     productdetail = ProductdetailsSerializer()
     productimg = ProductimagesSerializer(many=True)
-
+    seller = serializers.SlugRelatedField(slug_field='username', queryset=CustomerUser.objects.all())
+    category = categoryOnlySerializer()
+    subcategory = subcategorySerializer()
     class Meta:
         model = Product
-        fields = ('id', 'name', 'price', 'quantity', 'category', 'subcategory', 'productdetail', 'mainimage', 'productimg',)
+        fields = ('id', 'name', 'price', 'quantity', 'seller', 'category', 'subcategory', 'productdetail', 'mainimage', 'productimg',)
 
 
 ###################### CART ######################

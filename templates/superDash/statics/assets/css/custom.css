@@ -1,0 +1,12 @@
+.product-thumb{
+ max-height: 270px ;
+ object-fit: contain;
+ height: auto ;
+ text-align: center ;
+}
+.img-thumbnail{
+    width: auto;
+    max-height: 80px;
+    min-height: 80px;
+
+}

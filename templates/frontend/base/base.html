@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+{% load static %}
+<head>
+    {% include 'frontend/components/header/headlinks.html' %}
+</head>
+
+<body class="config">
+{% include 'frontend/components/loader/prelaoder.html' %}
+
+
+<!--====== Main App ======-->
+<div id="app">
+
+    <!--====== Main Header ======-->
+    {% include 'frontend/components/header/mainheader.html' %}
+    <!--====== End - Main Header ======-->
+
+
+    <!--====== App Content ======-->
+    {% block content %}
+    {% endblock %}
+    <!--====== End - App Content ======-->
+
+    <!--====== Main Footer ======-->
+    {% include 'frontend/components/footer/footer.html' %}
+    <!--====== End - Main Footer ======-->
+
+
+    <!--====== Modal Section ======-->
+    {% include 'frontend/components/modals/bodymodals.html' %}
+    <!--====== End - Modal Section ======-->
+
+</div>
+<!--====== End - Main App ======-->
+
+
+{% include 'frontend/components/bodyscripts/bodyscripts.html' %}
+</body>
+</html>
