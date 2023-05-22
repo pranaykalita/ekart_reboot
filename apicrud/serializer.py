@@ -3,6 +3,7 @@ from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
 from account.models import *
+from orders.models import Order
 from products.models import *
 
 
@@ -146,3 +147,9 @@ class productsSerialzier(serializers.ModelSerializer):
         instance.productimg.exclude(id__in=existing_image_ids).delete()
 
         return instance
+
+# Orderdisplay
+class OrderSerialzier(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = '__all__'

@@ -64,8 +64,8 @@ def dashboard(request):
     except Customerdetail.DoesNotExist:
         customer_detail = "Null"
 
-    addr = ip(request)
-    url = f"http://127.0.0.1:8000/api/orders/"
+    customerid = request.session.get('customerID')
+    url = f"http://127.0.0.1:8000/api/orders/{customerid}/"
     resp = requests.get(url)
     orders = resp.json()
     context = {'customer': customer, 'customer_detail': customer_detail, 'orderdetail': orders}
@@ -94,7 +94,8 @@ def editprofile(request, id):
         customer_detail.mobile = phone
         customer_detail.save()
         return redirect('fdashboard')
-    url = f"http://127.0.0.1:8000/api/orders/"
+    customerid = request.session.get('customerID')
+    url = f"http://127.0.0.1:8000/api/orders/{customerid}/"
     resp = requests.get(url)
     orders = resp.json()
     context = {'customer': customer, 'customer_detail': customer_detail,'orderdetail': orders}
@@ -122,7 +123,9 @@ def editpassword(request, id):
             return redirect('flogout')
         else:
             messages.error(request, 'Incorrect current password. Please try again.')
-    url = f"http://127.0.0.1:8000/api/orders/"
+
+    customerid = request.session.get('customerID')
+    url = f"http://127.0.0.1:8000/api/orders/{customerid}/"
     resp = requests.get(url)
     orders = resp.json()
     context = {'customer': customer, 'customer_detail': customer_detail, 'orderdetail': orders }
@@ -131,7 +134,9 @@ def editpassword(request, id):
 
 @login_required(login_url='fsignin')
 def dashboardorders(request):
-    url = "http://127.0.0.1:8000/api/orders/"
+    customerid = request.session.get('customerID')
+    url = f"http://127.0.0.1:8000/api/orders/{customerid}/"
+    print(url)
     response = requests.get(url)
     items = response.json()
     context = {'orderdetail': items}

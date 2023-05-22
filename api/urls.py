@@ -24,6 +24,7 @@ urlpatterns = [
     path('cart/<str:id>/<str:customer>/', cartRetriveView.as_view(), name='cartdatalist'),
 
 
-    path('orders/', orderlist.as_view(), name='orderapi'),
+    path('orders/<str:customer>/', orderlist.as_view(), name='orderapi'),
+    path('orders/<str:customer>/<str:id>/', orderRetrive.as_view(), name='orderretrive'),
 
 ]

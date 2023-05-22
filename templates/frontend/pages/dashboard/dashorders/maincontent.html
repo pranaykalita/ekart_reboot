@@ -16,48 +16,48 @@
                                 <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>
 
                                 <div class="m-order__list">
-                                     <!--====== Dashboard orders ======-->
+                                    <!--====== Dashboard orders ======-->
                                     {% for itm in orderdetail %}
-                                    <div class="m-order__get">
-                                        <div class="manage-o__header u-s-m-b-30">
-                                            <div class="dash-l-r">
-                                                <div>
-                                                    <div class="manage-o__text u-c-silver">Placed on {{ itm.created_at}}</div>
-                                                </div>
-                                                <div>
-                                                    <div class="dash__link dash__link--brand">
+                                        <div class="m-order__get">
+                                            <div class="manage-o__header u-s-m-b-30">
+                                                <div class="dash-l-r">
+                                                    <div>
+                                                        <div class="manage-o__text u-c-silver">Placed on {{ itm.created_at }}</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="dash__link dash__link--brand">
 
-                                                        <a href="">MANAGE</a></div>
+                                                            <a href="">MANAGE</a></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="manage-o__description">
-                                            <div class="description__container">
-                                                <div class="description__img-wrap">
+                                            <div class="manage-o__description">
+                                                <div class="description__container">
+                                                    <div class="description__img-wrap">
 
-                                                    <img class="u-img-fluid" src="{% static 'images/ordericon.png' %}" alt=""></div>
+                                                        <img class="u-img-fluid" src="{% static 'images/ordericon.png' %}" alt=""></div>
 
-                                                <div class="description-title">{{ itm.orderno}}</div>
-                                            </div>
-                                            <div class="description__info-wrap">
-                                                <div>
+                                                    <div class="description-title">{{ itm.orderno }}</div>
+                                                </div>
+                                                <div class="description__info-wrap">
+                                                    <div>
 
-                                                    <span class="manage-o__badge badge--processing"> {{ itm.orderstatus }}</span></div>
-                                                <div>
+                                                        <span class="manage-o__badge badge--processing"> {{ itm.orderstatus }}</span></div>
+                                                    <div>
 
                                                                 <span class="manage-o__text-2 u-c-silver">Quantity:
 
                                                                     <span class="manage-o__text-2 u-c-secondary">{{ itm.items|length }}</span></span></div>
-                                                <div>
+                                                    <div>
 
                                                                 <span class="manage-o__text-2 u-c-silver">Total:
 
                                                                     <span class="manage-o__text-2 u-c-secondary">Rs {{ itm.subtotal }}</span></span></div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     {% endfor %}
-                                     <!--====== Dashboard order END ======-->
+                                    <!--====== Dashboard order END ======-->
                                 </div>
                             </div>
                         </div>

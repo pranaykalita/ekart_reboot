@@ -2,7 +2,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin, RetrieveModelMixin
 
 from .serializer import *
-
+from api.tests import MultipleFieldLookupORMixin
 
 #########################################
 # Account LIST API
@@ -147,3 +147,10 @@ class ProductDetail(RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin,Generi
 
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
+class OrderList(ListModelMixin,MultipleFieldLookupORMixin,GenericAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerialzier
+    lookup_field = lookup_fields = ('id', 'seller')
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)

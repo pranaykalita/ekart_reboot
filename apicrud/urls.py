@@ -18,6 +18,7 @@ urlpatterns = [
     path('products/<str:id>/', ProductDetail.as_view()),
 
 
+    path('orders/', OrderList.as_view()),
 
 
     path('accounts/', AccountList.as_view()),
