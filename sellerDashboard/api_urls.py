@@ -6,3 +6,6 @@ categorycrud_url = 'http://127.0.0.1:8000/apicrud/category/'
 
 subcategory_url = 'http://127.0.0.1:8000/api/subcategory/'
 subcategorycrud_url = 'http://127.0.0.1:8000/apicrud/subcategory/'
+
+
+order_url = 'http://127.0.0.1:8000/apicrud/order/'

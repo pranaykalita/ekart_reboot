@@ -150,6 +150,8 @@ class productsSerialzier(serializers.ModelSerializer):
 
 # Orderdisplay
 class OrderSerialzier(serializers.ModelSerializer):
+    customer = serializers.SlugRelatedField(slug_field='username', queryset=CustomerUser.objects.all())
     class Meta:
         model = Order
         fields = '__all__'
+

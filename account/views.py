@@ -21,6 +21,7 @@ def sellerLogin(request):
                 login(request,seller)
                 # store session
                 request.session['sellerID'] = seller.id
+                request.session['sellerUsername'] = seller.username
                 return redirect('sellerdashboard')
             else:
                 return redirect('sellerlogin')

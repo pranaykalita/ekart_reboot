@@ -97,3 +97,9 @@ def add_product(api_url, data):
         return True
     else:
         return False
+
+
+def get_orders(api_url):
+    response = requests.get(api_url)
+    orders = response.json()
+    return orders

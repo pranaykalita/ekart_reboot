@@ -22,4 +22,7 @@ urlpatterns = [
     path('editproduct/<str:id>/', editproduct, name='editproduct'),
 
 
+    path('orders/', orderbyseller, name='orders'),
+
+
 ]

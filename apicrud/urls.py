@@ -14,17 +14,16 @@ urlpatterns = [
     #
     # path('prod/', addproductDetails.as_view()),
 
-    path('products/', ProductsList.as_view(),name='crudproduct'),
+    path('products/', ProductsList.as_view(), name='crudproduct'),
     path('products/<str:id>/', ProductDetail.as_view()),
 
-
     path('orders/', OrderList.as_view()),
+    path('order/<str:seller_name>/', OrderBysellerView.as_view(), name='order-by-seller'),
 
 
-    path('accounts/', AccountList.as_view()),
-    path('account/<str:username>/', AccountList.as_view()),
+path('accounts/', AccountList.as_view()),
+path('account/<str:username>/', AccountList.as_view()),
 
-
-    path('signupapi/', CreateAccountApi.as_view()),
-    path('signupapi/<int:id>/', InsertAcoountDetail.as_view()),
+path('signupapi/', CreateAccountApi.as_view()),
+path('signupapi/<int:id>/', InsertAcoountDetail.as_view()),
 ]

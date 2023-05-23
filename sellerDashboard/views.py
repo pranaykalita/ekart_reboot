@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from account.models import CustomerUser
 from products.models import *
 from .api_urls import *
 from .apicall import *
@@ -266,3 +265,14 @@ def editproduct(request, id):
         'subcat': subcategorydata
     }
     return render(request, 'sellerDash/pages/editproduct/index.html', context)
+
+
+# ORders by seller
+@login_required(login_url='sellerlogin')
+def orderbyseller(request):
+    sellername = request.session.get('sellerUsername')
+    api_url = order_url + sellername + '/'
+    order_data = get_orders(api_url)
+    context = {'orders': order_data}
+    print(context)
+    return render(request, 'sellerDash/pages/orders/index.html',context)

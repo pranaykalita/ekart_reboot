@@ -1,8 +1,10 @@
+from rest_framework import generics
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin, RetrieveModelMixin
 
-from .serializer import *
 from api.tests import MultipleFieldLookupORMixin
+from .serializer import *
+
 
 #########################################
 # Account LIST API
@@ -120,7 +122,7 @@ class SubcategoryDetail(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin,
 # product CRUD
 #########################################
 
-class ProductsList(ListModelMixin,CreateModelMixin,GenericAPIView):
+class ProductsList(ListModelMixin, CreateModelMixin, GenericAPIView):
     queryset = Product.objects.all()
     serializer_class = productsSerialzier
 
@@ -134,7 +136,8 @@ class ProductsList(ListModelMixin,CreateModelMixin,GenericAPIView):
     def put(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-class ProductDetail(RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin,GenericAPIView):
+
+class ProductDetail(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
     queryset = Product.objects.all()
     serializer_class = productsSerialzier
     lookup_field = 'id'
@@ -148,9 +151,35 @@ class ProductDetail(RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin,Generi
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-class OrderList(ListModelMixin,MultipleFieldLookupORMixin,GenericAPIView):
+
+class OrderList(ListModelMixin, MultipleFieldLookupORMixin, GenericAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerialzier
     lookup_field = lookup_fields = ('id', 'seller')
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
+# order by seller
+class OrderBysellerView(ListModelMixin,GenericAPIView):
+    serializer_class = OrderSerialzier
+
+    def get_queryset(self):
+        seller_id = self.kwargs['seller_name']
+        orders = Order.objects.all()
+        filtered_orders = []
+
+        for order in orders:
+            filtered_items = []
+            for item in order.items:
+                if item['product']['seller'] == seller_id:
+                    filtered_items.append(item)
+
+            if filtered_items:
+                order.items = filtered_items
+                filtered_orders.append(order)
+        return filtered_orders
+
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
