@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
 from account.models import *
-from orders.models import Order
+from orders.models import Order, Orderaddress ,selleraproval
 from products.models import *
 
 
@@ -148,10 +148,37 @@ class productsSerialzier(serializers.ModelSerializer):
 
         return instance
 
+
+class selleraprrovalserialzier(serializers.ModelSerializer):
+    class Meta:
+        model = selleraproval
+        fields = '__all__'
+
+class DeliveryAddressser(serializers.ModelSerializer):
+    class Meta:
+        model = Orderaddress
+        fields = '__all__'
+
 # Orderdisplay
 class OrderSerialzier(serializers.ModelSerializer):
+    sellerstatus = selleraprrovalserialzier(many=True)
     customer = serializers.SlugRelatedField(slug_field='username', queryset=CustomerUser.objects.all())
+    created_at = serializers.DateTimeField(format='%d-%m-%Y %H:%M:%S %p')
+
     class Meta:
         model = Order
         fields = '__all__'
 
+
+
+
+
+class FullorderdetailSerializer(serializers.ModelSerializer):
+    sellerstatus = selleraprrovalserialzier(many=True)
+    orderaddress = DeliveryAddressser(many=True)
+    customer = serializers.SlugRelatedField(slug_field='username', queryset=CustomerUser.objects.all())
+    created_at = serializers.DateTimeField(format='%d-%m-%Y %H:%M:%S %p')
+
+    class Meta:
+        model = Order
+        fields = '__all__'

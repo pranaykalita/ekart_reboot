@@ -4,17 +4,11 @@
             <div class="card-body">
 
 
-
                 <div class="table-responsive">
-                    <table class="table table-centered w-100 dt-responsive nowrap"  id="basic-datatable">
+                    <table class="table table-centered w-100 dt-responsive nowrap" id="basic-datatable">
                         <thead class="table-light">
                         <tr>
-                            <th class="all" style="width: 20px;">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck1">
-                                    <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                </div>
-                            </th>
+
                             <th class="all">OrderNumber</th>
                             <th>Customer</th>
                             <th>OdrderDate</th>
@@ -26,51 +20,40 @@
                         </thead>
                         <tbody>
                         {% for order in orders %}
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <img src="{{ order.mainimage }}" alt="contact-img" title="contact-img" class="rounded me-3" height="48">
-                                    <p class="m-0 d-inline-block align-middle font-16">
-                                        <a href="{% url 'sellersingleproducts' order.id %}" class="text-body">{{ order.orderno }}</a>
-                                        <br>
-                                        <span class="text-warning">{{ order.productdetail.SKU }}</span>
-                                    </p>
-                                </td>
-                                <td>
-                                    {{ order.customer }}
-                                </td>
-                                <td>
-                                    {{ order.created_at }}
-                                </td>
-                                <td>
-                                    ₹ {{ order.subtotal }}
-                                </td>
+                            {% for check in order.sellerstatus %}
+                                {% if check.approval == "pending" %}
+                                    <tr>
 
-                                <td>
-                                    {{ order.items|length }}
-                                </td>
-                                <td>
-                                    {% if  product.quantity  > 100 %}
-                                        <span class="badge bg-success">Active</span>
-                                    {% elif order.quantity < 100 %}
-                                        <span class="badge bg-warning">Low stock</span>
-                                    {% elif  order.quantity  == 0 %}
-                                        <span class="badge bg-danger">Out of Stock</span>
-                                    {% endif %}
-                                </td>
+                                        <td>
+                                            <span class="text-warning">{{ order.orderno }}</span>
+                                        </td>
+                                        <td>
+                                            {{ order.customer }}
 
-                                <td class="table-action">
-                                    <a href="{% url 'sellersingleproducts' order.id %}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    <a href="{% url 'editproduct' order.id %}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                    <a href="{% url 'deleteproduct' order.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
-                                </td>
-                            </tr>
+                                        <td>
+                                            {{ order.created_at }}
+                                        </td>
+                                        <td style="color: #0c6af3">
+                                            ₹ {{ order.subtotal }}
+                                        </td>
+
+                                        <td>
+                                            {{ order.items|length }}
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-primary">{{ order.orderstatus }}</span>
+                                        </td>
+
+                                        <td class="table-action">
+                                            <a href="{% url 'orderdetails' id=order.id %}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                            <a href="{% url 'editproduct' order.id %}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                            <a href="{% url 'deleteproduct' order.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
                         {% endfor %}
+
                         </tbody>
                     </table>
                 </div>

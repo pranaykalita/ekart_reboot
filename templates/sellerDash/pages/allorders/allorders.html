@@ -1,0 +1,83 @@
+<div class="row">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table class="table table-centered w-100 dt-responsive nowrap" id="basic-datatable">
+                        <thead class="table-light">
+                        <tr>
+
+                            <th class="all">OrderNumber</th>
+                            <th>Customer</th>
+                            <th>OdrderDate</th>
+                            <th>Price</th>
+                            <th>Items</th>
+                            <th>Admin Status</th>
+                            <th>Seller Status</th>
+                            <th style="width: 85px;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in orders %}
+                            <tr>
+
+                                <td>
+                                    <span class="text-warning">{{ order.orderno }}</span>
+                                </td>
+                                <td>
+                                    {{ order.customer }}
+
+                                <td>
+                                    {{ order.created_at }}
+                                </td>
+                                <td style="color: #0c6af3">
+                                    ₹ {{ order.subtotal }}
+                                </td>
+
+                                <td>
+                                    {{ order.items|length }}
+                                </td>
+                                <td>
+                                     <span class="badge
+{% if order.orderstatus == 'rejected' %}
+bg-danger
+{% elif order.orderstatus == 'approved' %}
+bg-success
+{% elif order.orderstatus == 'pending' %}
+bg-primary
+{% endif %}">{{ order.orderstatus }}</span>
+                                </td>
+                                <td>
+                                    {% for xdata in order.sellerstatus %}
+                                        <span class="badge
+{% if xdata.approval == 'rejected' %}
+bg-danger
+{% elif xdata.approval == 'approved' %}
+bg-success
+{% elif xdata.approval == 'pending' %}
+bg-primary
+{% endif %}">{{ xdata.approval }}</span>
+                                    {% endfor %}
+                                </td>
+
+                                <td class="table-action">
+                                    <a href="{% url 'orderdetails' id=order.id %}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                    <a href="{% url 'editproduct' order.id %}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                    <a href="{% url 'deleteproduct' order.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end card-body-->
+        </div>
+        <!-- end card-->
+    </div>
+    <!-- end col -->
+</div>

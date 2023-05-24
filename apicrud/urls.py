@@ -19,11 +19,11 @@ urlpatterns = [
 
     path('orders/', OrderList.as_view()),
     path('order/<str:seller_name>/', OrderBysellerView.as_view(), name='order-by-seller'),
+    path('order/<str:seller_name>/<int:id>/', OrderRetriveview.as_view(), name='order-by-seller-retrive'),
 
+    path('accounts/', AccountList.as_view()),
+    path('account/<str:username>/', AccountList.as_view()),
 
-path('accounts/', AccountList.as_view()),
-path('account/<str:username>/', AccountList.as_view()),
-
-path('signupapi/', CreateAccountApi.as_view()),
-path('signupapi/<int:id>/', InsertAcoountDetail.as_view()),
+    path('signupapi/', CreateAccountApi.as_view()),
+    path('signupapi/<int:id>/', InsertAcoountDetail.as_view()),
 ]

@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
+from orders.models import *
 from products.models import *
 from .api_urls import *
 from .apicall import *
@@ -271,8 +272,54 @@ def editproduct(request, id):
 @login_required(login_url='sellerlogin')
 def orderbyseller(request):
     sellername = request.session.get('sellerUsername')
-    api_url = order_url + sellername + '/'
+    api_url = order_url + sellername
+    print(api_url)
     order_data = get_orders(api_url)
     context = {'orders': order_data}
     print(context)
-    return render(request, 'sellerDash/pages/orders/index.html',context)
+
+    return render(request, 'sellerDash/pages/orders/index.html', context)
+
+@login_required(login_url='sellerlogin')
+def allorders(request):
+    sellername = request.session.get('sellerUsername')
+    api_url = order_url + sellername
+    print(api_url)
+    order_data = get_orders(api_url)
+    context = {'orders': order_data}
+    print(context)
+    return render(request, 'sellerDash/pages/allorders/index.html', context)
+
+
+def orderdetails(request, id):
+    sellername = request.session.get('sellerUsername')
+    api_url = order_url + sellername + '/' + id
+    order_detail = get_order_detail(api_url)
+    context = {'order_detail': order_detail}
+    # set inital order status
+    order = Order.objects.get(id=id)
+    sellerid = request.session.get('sellerID')
+    seller = CustomerUser.objects.get(id=sellerid)
+    # Check if the selleraproval instance already exists
+    if not selleraproval.objects.filter(order=order, seller=seller).exists():
+        s = selleraproval(order=order, seller=seller, approval='pending')
+        s.save()
+
+    return render(request, 'sellerDash/pages/orderDetails/index.html', context)
+
+
+def orderapprove(request, id):
+    sellerorder = selleraproval.objects.get(order=id)
+    status = 'approved'
+    # set to reject or approve by seller
+    sellerorder.approval = status
+    sellerorder.save()
+    return redirect('orders')
+
+def orderreject(request, id):
+    sellerorder = selleraproval.objects.get(order=id)
+    status = 'rejected'
+    # set to reject or approve by seller
+    sellerorder.approval = status
+    sellerorder.save()
+    return redirect('orders')

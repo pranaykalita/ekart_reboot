@@ -157,6 +157,10 @@ class OrderList(ListModelMixin, MultipleFieldLookupORMixin, GenericAPIView):
     serializer_class = OrderSerialzier
     lookup_field = lookup_fields = ('id', 'seller')
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.order_by('-created_at')
+        return queryset
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
@@ -168,6 +172,7 @@ class OrderBysellerView(ListModelMixin,GenericAPIView):
     def get_queryset(self):
         seller_id = self.kwargs['seller_name']
         orders = Order.objects.all()
+        orders = orders.order_by('-created_at')
         filtered_orders = []
 
         for order in orders:
@@ -183,3 +188,29 @@ class OrderBysellerView(ListModelMixin,GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+
+class OrderRetriveview(RetrieveModelMixin, GenericAPIView):
+    serializer_class = FullorderdetailSerializer
+    queryset = Order.objects.all()
+
+    def get_object(self):
+        seller_id = self.kwargs['seller_name']
+        order_id = self.kwargs['id']
+        orders = super().get_queryset()
+
+        for order in orders:
+            filtered_items = []
+            for item in order.items:
+                if item['product']['seller'] == seller_id:
+                    filtered_items.append(item)
+
+            if filtered_items and order.id == order_id:
+                order.items = filtered_items
+                return order
+
+        return None
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+

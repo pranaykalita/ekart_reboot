@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from account.models import CustomerUser
 from cart.models import Cart
 from cart.views import ip
-from orders.models import Order, Orderaddress
+from orders.models import *
 
 
 # Create your views here.
@@ -47,8 +47,10 @@ def checkout(request):
             payment=payment
         )
         order.save()
+
         orderID = order.id
         orderitem = Order.objects.get(id=orderID)
+
         orderaddress = Orderaddress(
             order=orderitem,
             firstname=firstname,
