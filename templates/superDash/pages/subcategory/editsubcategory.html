@@ -6,7 +6,7 @@
                                                     <h5 class="modal-title" id="exampleModal{{ sub.id }}Label">EDIT</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="{% url 'subCategorycrud' sub.id %}" method="post">
+                                                <form action="{% url 'Supsubcategorycrud' sub.id %}" method="post">
                                                     {% csrf_token %}
                                                     <div class="modal-body">
                                                         <div class="mb-3">

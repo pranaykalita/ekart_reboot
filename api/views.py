@@ -21,6 +21,14 @@ class AccountsList(ListModelMixin, GenericAPIView):
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
+class Accountsretrive(RetrieveModelMixin,GenericAPIView):
+    queryset = CustomerUser.objects.all()
+    serializer_class = accountSerializer
+    lookup_field = 'id'
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
 
 ##################### CATEGORY AND SUB #####################
 
@@ -76,6 +84,15 @@ class ProductRetrive(RetrieveModelMixin, GenericAPIView):
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
+
+class productbyseller(ListModelMixin,GenericAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get(self, request, *args, **kwargs):
+        seller = kwargs.get('seller')
+        self.queryset = self.queryset.filter(seller__username=seller)
+        return self.list(request, *args, **kwargs)
 
 ##################### CART #####################
 

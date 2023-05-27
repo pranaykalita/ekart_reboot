@@ -26,7 +26,7 @@ def Managerlogin(request):
                 # store session
                 request.session['managerID'] = manager.id
                 request.session['managerUsername'] = manager.username
-                return redirect('sellerdashboard')
+                return redirect('SupDash')
             else:
                 return redirect('SupDash')
         return render(request, 'superDash/pages/login_registration/login.html')

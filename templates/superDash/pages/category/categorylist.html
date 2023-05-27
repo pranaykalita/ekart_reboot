@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <form action="{% url 'sellercategory' %}" method="post">
+                <form action="{% url 'Supcategory' %}" method="post">
                     {% csrf_token %}
                     <div class="row mb-1">
                         <div class="col-12">
@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-12">
                             <input type="submit" class="btn btn-danger mb-2" value="SAVE">
-                            <a href="{% url 'sellersubcategory' %}" class="btn btn-primary float-end mb-2">Add SubCategory</a>
+                            <a href="{% url 'Supsubcategory' %}" class="btn btn-primary float-end mb-2">Add SubCategory</a>
                         </div>
                         <!-- end col-->
                     </div>
@@ -45,7 +45,7 @@
                                     <button type="button" class="btn action-icon" data-bs-toggle="modal" data-bs-target="#exampleModal{{ category.id }}"><i class="mdi
                                     mdi-square-edit-outline"></i></button>
                                     {% include './editcategory.html' %}
-                                    <a href="{% url 'categorycrud' category.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                    <a href="{% url 'Supcategorycrud' category.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}

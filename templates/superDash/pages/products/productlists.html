@@ -3,18 +3,7 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="row mb-2">
-                    <div class="col-sm-4">
-                        <a href="{% url 'addproduct' %}" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i> Add Products</a>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="text-sm-end">
-                            <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-square-edit-outline"></i></button>
-                            <button type="button" class="btn btn-light mb-2 me-1">Import</button>
-                        </div>
-                    </div>
-                    <!-- end col-->
-                </div>
+
 
                 <div class="table-responsive">
                     <table class="table table-centered w-100 dt-responsive nowrap"  id="basic-datatable">
@@ -53,7 +42,7 @@
                                     </p>
                                 </td>
                                 <td>
-                                    {{ product.category }}
+                                    {{ product.category.name }}
                                 </td>
                                 <td>
                                     {{ product.seller }}
@@ -76,9 +65,8 @@
                                 </td>
 
                                 <td class="table-action">
-                                    <a href="{% url 'sellersingleproducts' product.id %}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                    <a href="{% url 'editproduct' product.id %}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                    <a href="{% url 'deleteproduct' product.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                    <a href="{% url 'Supsingleproducts' product.id %}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+
                                 </td>
                             </tr>
                         {% endfor %}

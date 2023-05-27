@@ -11,6 +11,9 @@ from .apicall import *
 
 @login_required(login_url='sellerlogin')
 def dashboard(request):
+    if request.user.is_authenticated and request.user.is_superuser and request.user.is_seller:
+        # Redirect to login page with logout
+        return redirect('sellerlogout')
     return render(request, 'sellerDash/pages/home/index.html')
 
 

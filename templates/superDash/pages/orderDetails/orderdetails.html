@@ -10,7 +10,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title mb-3">Items from <span class=" text text-danger"> {{ order_detail.orderno }}</span></h4>
+                <h4 class="header-title mb-3">Items For <span class=" text text-danger"> {{ orderdata.orderno }}</span></h4>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <thead class="table-light">
@@ -27,7 +27,7 @@
                             <tr>
                                 <td>{{ item.product.name }}</td>
                                 <td>{{ item.quantity }}</td>
-                                <td>{{ item.seller }}</td>
+                                <td>{{ item.product.seller }}</td>
                                 <td class="text-danger">RS {{ item.product.price }}</td>
                                 <td class="text-primary">RS {{ item.itemtotal }}</td>
                             </tr>
@@ -45,13 +45,13 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title mb-3">Items from <span class=" text text-danger"> {{ order_detail.orderno }}</span></h4>
+                <h4 class="header-title mb-3">Seller FOR <span class=" text text-danger"> {{ orderdata.orderno }}</span></h4>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <thead class="table-light">
                         <tr>
                             <th>Seller</th>
-                            <th>order</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>

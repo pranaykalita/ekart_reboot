@@ -6,6 +6,7 @@ urlpatterns = [
 
     #
     path('accounts/', AccountsList.as_view(), name='accountsAPI'),
+    path('accounts/<int:id>/', Accountsretrive.as_view(), name='accountsdetailsAPI'),
 
     # GET /api/category/
     path('combinecategory/', CategorySubList.as_view(), name='categorylistAPI'),
@@ -17,6 +18,7 @@ urlpatterns = [
     path('products/', ProductList.as_view(), name='productslistAPI'),
     # GET /api/products/1/
     path('products/<int:id>/', ProductRetrive.as_view(), name='productsingleAPI'),
+    path('sellerproducts/<str:seller>/', productbyseller.as_view(), name='productbyseller'),
 
     # GET /api/cart/
     path('cart/', cartListView.as_view(), name='cartlist'),

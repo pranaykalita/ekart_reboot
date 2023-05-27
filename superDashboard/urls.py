@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import *
 from account.views import Managerlogin, managerlogout
+from .views import *
 
 urlpatterns = [
     path('', dashboard, name='SupDash'),
@@ -10,8 +10,16 @@ urlpatterns = [
     path('logout.', managerlogout, name='Suplogout'),
 
     path('products/', products, name='SupProducts'),
+    path('singleproduct/<str:id>/', singleproduct, name='Supsingleproducts'),
+
     path('category/', category, name='Supcategory'),
+    path('category/<str:id>/', categorycrud, name='Supcategorycrud'),
+
     path('subcategory/', subcategory, name='Supsubcategory'),
+    path('subcategory/<str:id>/', subcategorycrud, name='Supsubcategorycrud'),
+
+    path('sellers/', Sellers, name='Supseller'),
+    path('sellers/<str:id>/', Sellerdetails, name='Supsellerdetails'),
 
     path('neworders/', neworders, name='Supneworder'),
     path('allorders/', allorders, name='Supallorder'),

@@ -11,7 +11,7 @@ from products.models import *
 class accountdetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customerdetail
-        fields = ('profileimg',)
+        fields = '__all__'
 
 
 # account Display
@@ -20,7 +20,7 @@ class accountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomerUser
-        fields = ['username', 'email', 'profileImage']
+        fields = '__all__'
 
 
 ###################### Category ######################
