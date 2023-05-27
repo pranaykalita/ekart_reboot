@@ -297,16 +297,21 @@ def orderdetails(request, id):
     api_url = order_url + sellername + '/' + id
     order_detail = get_order_detail(api_url)
     context = {'order_detail': order_detail}
+
     return render(request, 'sellerDash/pages/orderDetails/index.html', context)
 
 
-def orderapprove(request, id):
+def orderapprove(request, id,qty):
     seller = request.session.get('sellerID')
     sellerorder = orderapprovals.objects.get(order=id,seller=seller)
 
     status = 'approved'
     sellerorder.approval = status
     sellerorder.save()
+
+
+    # set product qquantity less
+
     return redirect('orders')
 
 def orderreject(request, id):

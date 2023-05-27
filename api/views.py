@@ -131,7 +131,7 @@ class orderlist(ListModelMixin,GenericAPIView):
 class orderRetrive(RetrieveModelMixin,MultipleFieldLookupORMixin,GenericAPIView):
     queryset = Order.objects.all()
     serializer_class = Orderserializer
-    lookup_field = lookup_fields = ('id', 'customer')
+    lookup_field = lookup_fields = ('orderno', 'customer')
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)

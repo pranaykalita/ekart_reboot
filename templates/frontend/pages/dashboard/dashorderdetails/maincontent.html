@@ -1,147 +1,222 @@
 <!--====== Section 2 ======-->
-            <div class="u-s-p-b-60">
+<div class="u-s-p-b-60">
 
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="dash">
-                        <div class="container">
-                            <div class="row">
-                                 {% include '../commonsidecounter.html' %}
-                                <div class="col-lg-9 col-md-12">
-                                    <h1 class="dash__h1 u-s-m-b-30">Order Details</h1>
-                                    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
-                                        <div class="dash__pad-2">
-                                            <div class="dash-l-r">
-                                                <div>
-                                                    <div class="manage-o__text-2 u-c-secondary">Order #305423126</div>
-                                                    <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 09:08:37</div>
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="dash">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+
+                        <!--====== Dashboard Features ======-->
+                        <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                            <div class="dash__pad-1">
+
+                                <ul class="dash__f-list">
+
+                                    <li>
+
+                                        <a class="dash-active" href="{% url 'fdashboard' %}">My Profile</a></li>
+
+                                    <li>
+
+                                        <a href="{% url 'fdashboardorder' %} ">My Orders</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!--====== End - Dashboard Features ======-->
+
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <h1 class="dash__h1 u-s-m-b-30">Order Details</h1>
+                        <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                            <div class="dash__pad-2">
+                                <div class="dash-l-r">
+                                    <div>
+                                        <div class="manage-o__text-2 u-c-secondary">#{{ details.orderno }}</div>
+                                        <div class="manage-o__text u-c-silver">Placed on {{ details.created_at }}</div>
+                                    </div>
+                                    <div>
+                                        <div class="manage-o__text-2 u-c-silver">Total:
+
+                                            <span class="manage-o__text-2 u-c-secondary">Rs {{ details.subtotal }}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                            <div class="dash__pad-2">
+                                <div class="manage-o">
+                                    <div class="manage-o__header u-s-m-b-30">
+                                        <div class="manage-o__icon"><i class="fas fa-box u-s-m-r-5"></i>
+
+                                            <span class="manage-o__text">Package 1</span></div>
+                                    </div>
+                                    <div class="dash-l-r">
+                                        <div class="manage-o__icon"><i class="fas fa-truck u-s-m-r-5"></i>
+                                            <span class="manage-o__text">Standard</span></div>
+                                    </div>
+                                    <div class="manage-o__timeline">
+                                        <div class="timeline-row">
+                                            {% if details.orderstatus == 'approved' %}
+                                                <div class="col-lg-4 u-s-m-b-30">
+                                                    <div class="timeline-step">
+                                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                                            <span class="timeline-circle"></span></div>
+
+                                                        <span class="timeline-text">Processing</span>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <div class="manage-o__text-2 u-c-silver">Total:
+                                                <div class="col-lg-4 u-s-m-b-30">
+                                                    <div class="timeline-step">
+                                                        <div class="timeline-l-i timeline-l-i--finish">
 
-                                                        <span class="manage-o__text-2 u-c-secondary">$16.00</span></div>
+                                                            <span class="timeline-circle"></span></div>
+
+                                                        <span class="timeline-text">Shipped</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 u-s-m-b-30">
+
+                                                    <div class="timeline-step">
+                                                        <div class="timeline-l-i">
+
+                                                            <span class="timeline-circle"></span></div>
+
+                                                        <span class="timeline-text">Delivered</span>
+                                                    </div>
+                                                </div>
+                                            {% elif details.orderstatus == 'pending' %}
+                                                <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Processing</span>
                                                 </div>
                                             </div>
+                                                <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Shipped</span>
+                                                </div>
+                                            </div>
+                                                <div class="col-lg-4 u-s-m-b-30">
+
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Delivered</span>
+                                                </div>
+                                            </div>
+                                            {% elif details.orderstatus == 'delivered' %}
+                                                <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Processing</span>
+                                                </div>
+                                            </div>
+                                                <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Shipped</span>
+                                                </div>
+                                            </div>
+                                                <div class="col-lg-4 u-s-m-b-30">
+
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Delivered</span>
+                                                </div>
+                                            </div>
+                                            {% elif details.orderstatus == 'cancelled' %}
+                                                <div class="col-lg-12">
+                                                <h4 style="color: red;">ORDER CANCELLED</h4>
+                                                </div>
+                                            {% endif %}
+
                                         </div>
                                     </div>
-                                    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
-                                        <div class="dash__pad-2">
-                                            <div class="manage-o">
-                                                <div class="manage-o__header u-s-m-b-30">
-                                                    <div class="manage-o__icon"><i class="fas fa-box u-s-m-r-5"></i>
+                                    {% for item in details.items %}
+                                        <div class="manage-o__description" style="padding: 1rem">
+                                            <div class="description__container">
+                                                <div class="description__img-wrap">
 
-                                                        <span class="manage-o__text">Package 1</span></div>
-                                                </div>
-                                                <div class="dash-l-r">
-                                                    <div class="manage-o__text u-c-secondary">Delivered on 26 Oct 2016</div>
-                                                    <div class="manage-o__icon"><i class="fas fa-truck u-s-m-r-5"></i>
-
-                                                        <span class="manage-o__text">Standard</span></div>
-                                                </div>
-                                                <div class="manage-o__timeline">
-                                                    <div class="timeline-row">
-                                                        <div class="col-lg-4 u-s-m-b-30">
-                                                            <div class="timeline-step">
-                                                                <div class="timeline-l-i timeline-l-i--finish">
-
-                                                                    <span class="timeline-circle"></span></div>
-
-                                                                <span class="timeline-text">Processing</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 u-s-m-b-30">
-                                                            <div class="timeline-step">
-                                                                <div class="timeline-l-i timeline-l-i--finish">
-
-                                                                    <span class="timeline-circle"></span></div>
-
-                                                                <span class="timeline-text">Shipped</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 u-s-m-b-30">
-                                                            <div class="timeline-step">
-                                                                <div class="timeline-l-i">
-
-                                                                    <span class="timeline-circle"></span></div>
-
-                                                                <span class="timeline-text">Delivered</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="manage-o__description">
-                                                    <div class="description__container">
-                                                        <div class="description__img-wrap">
-
-                                                            <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
-                                                        <div class="description-title">Yellow Wireless Headphone</div>
-                                                    </div>
-                                                    <div class="description__info-wrap">
-                                                        <div>
+                                                    <img class="u-img-fluid" src="{{ item.product.mainimage }}" alt=""></div>
+                                                <div class="description-title">{{ item.product.name }}</div>
+                                            </div>
+                                            <div class="description__info-wrap">
+                                                <div>
 
                                                             <span class="manage-o__text-2 u-c-silver">Quantity:
 
-                                                                <span class="manage-o__text-2 u-c-secondary">1</span></span></div>
-                                                        <div>
+                                                                <span class="manage-o__text-2 u-c-secondary">{{ item.quantity }}</span></span></div>
+                                                <div>
 
                                                             <span class="manage-o__text-2 u-c-silver">Total:
 
-                                                                <span class="manage-o__text-2 u-c-secondary">$16.00</span></span></div>
-                                                    </div>
-                                                </div>
+                                                                <span class="manage-o__text-2 u-c-secondary">RS {{ item.itemtotal }}</span></span></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
-                                                <div class="dash__pad-3">
-                                                    <h2 class="dash__h2 u-s-m-b-8">Shipping Address</h2>
-                                                    <h2 class="dash__h2 u-s-m-b-8">John Doe</h2>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                                    {% for address in details.orderaddress %}
+                                        <div class="dash__pad-3">
+                                            <h2 class="dash__h2 u-s-m-b-8">Shipping Address</h2>
+                                            <h2 class="dash__h2 u-s-m-b-8">{{ address.firstname }} {{ address.lastname }}</h2>
 
-                                                    <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+                                            <span class="dash__text-2">{{ address.address1 }} {{ address.address2 }} ,{{ address.city }}-{{ address.postal }},{{ address.country }}</span>
 
-                                                    <span class="dash__text-2">(+0) 900901904</span>
-                                                </div>
-                                            </div>
-                                            <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
-                                                <div class="dash__pad-3">
-                                                    <h2 class="dash__h2 u-s-m-b-8">Billing Address</h2>
-                                                    <h2 class="dash__h2 u-s-m-b-8">John Doe</h2>
-
-                                                    <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
-
-                                                    <span class="dash__text-2">(+0) 900901904</span>
-                                                </div>
-                                            </div>
+                                            <span class="dash__text-2">(+91) {{ address.phone }}</span>
+                                            <span class="dash__text-2">{{ address.email }}</span>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="dash__box dash__box--bg-white dash__box--shadow u-h-100">
-                                                <div class="dash__pad-3">
-                                                    <h2 class="dash__h2 u-s-m-b-8">Total Summary</h2>
-                                                    <div class="dash-l-r u-s-m-b-8">
-                                                        <div class="manage-o__text-2 u-c-secondary">Subtotal</div>
-                                                        <div class="manage-o__text-2 u-c-secondary">$16.00</div>
-                                                    </div>
-                                                    <div class="dash-l-r u-s-m-b-8">
-                                                        <div class="manage-o__text-2 u-c-secondary">Shipping Fee</div>
-                                                        <div class="manage-o__text-2 u-c-secondary">$16.00</div>
-                                                    </div>
-                                                    <div class="dash-l-r u-s-m-b-8">
-                                                        <div class="manage-o__text-2 u-c-secondary">Total</div>
-                                                        <div class="manage-o__text-2 u-c-secondary">$30.00</div>
-                                                    </div>
+                                    {% endfor %}
+                                </div>
 
-                                                    <span class="dash__text-2">Paid by Cash on Delivery</span>
-                                                </div>
-                                            </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="dash__box dash__box--bg-white dash__box--shadow u-h-100">
+                                    <div class="dash__pad-3">
+                                        <h2 class="dash__h2 u-s-m-b-8">Total Summary</h2>
+                                        <div class="dash-l-r u-s-m-b-8">
+                                            <div class="manage-o__text-2 u-c-secondary">Subtotal</div>
+                                            <div class="manage-o__text-2 u-c-secondary">Rs {{ details.subtotal }}</div>
                                         </div>
+
+
+                                        <span class="dash__text-2">Paid by Cash on Delivery</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--====== End - Section Content ======-->
             </div>
-            <!--====== End - Section 2 ======-->
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 2 ======-->

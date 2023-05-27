@@ -21,25 +21,25 @@
                         </thead>
                         <tbody>
                         {% for order in allorders %}
-                            <tr>
+                            {% if order.orderstatus == 'approved' %}
+                                <tr>
+                                    <td>
+                                        <span class="text-warning">{{ order.orderno }}</span>
+                                    </td>
+                                    <td>
+                                        {{ order.customer }}
 
-                                <td>
-                                    <span class="text-warning">{{ order.orderno }}</span>
-                                </td>
-                                <td>
-                                    {{ order.customer }}
+                                    <td>
+                                        {{ order.created_at }}
+                                    </td>
+                                    <td style="color: #0c6af3">
+                                        ₹ {{ order.subtotal }}
+                                    </td>
 
-                                <td>
-                                    {{ order.created_at }}
-                                </td>
-                                <td style="color: #0c6af3">
-                                    ₹ {{ order.subtotal }}
-                                </td>
-
-                                <td>
-                                    {{ order.items|length }}
-                                </td>
-                                <td>
+                                    <td>
+                                        {{ order.items|length }}
+                                    </td>
+                                    <td>
                                      <span class="badge
                                      {% if order.orderstatus == 'cancelled' %}
                                      bg-danger
@@ -47,16 +47,15 @@
                                      bg-success
                                      {% elif order.orderstatus == 'pending' %}
                                      bg-primary
-                                     {% elif order.orderstatus == 'delivered' %}
-                                     bg-success
-                                     {% endif %}"> {{ order.orderstatus }}
+                                     {% endif %}">{{ order.orderstatus }}
                                      </span>
-                                </td>
+                                    </td>
 
-                                <td class="table-action">
-                                    <a href="{% url 'Suporderdetails' id=order.id %}" class="btn btn-danger"> <i class="mdi mdi-eye"></i> Manage</a>
-                                </td>
-                            </tr>
+                                    <td class="table-action">
+                                        <a href="{% url 'Suporderdetails' id=order.id %}" class="btn btn-danger"> <i class="mdi mdi-eye"></i> Manage</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
 
                         </tbody>

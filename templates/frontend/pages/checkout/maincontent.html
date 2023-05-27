@@ -15,47 +15,40 @@
                                 <!--====== First Name, Last Name ======-->
                                 <div class="gl-inline">
                                     <div class="u-s-m-b-15">
-
                                         <label class="gl-label" for="billing-fname">FIRST NAME *</label>
-
-                                        <input class="input-text input-text--primary-style" type="text" name="billing-fname" data-bill=""></div>
+                                        <input class="input-text input-text--primary-style" type="text" name="billing-fname" data-bill="" required>
+                                    </div>
                                     <div class="u-s-m-b-15">
-
                                         <label class="gl-label" for="billing-lname">LAST NAME *</label>
-
-                                        <input class="input-text input-text--primary-style" type="text" name="billing-lname" data-bill=""></div>
+                                        <input class="input-text input-text--primary-style" type="text" name="billing-lname" data-bill="" required>
+                                    </div>
                                 </div>
                                 <!--====== End - First Name, Last Name ======-->
 
 
                                 <!--====== E-MAIL ======-->
                                 <div class="u-s-m-b-15">
-
                                     <label class="gl-label" for="billing-email">E-MAIL *</label>
-
-                                    <input class="input-text input-text--primary-style" type="text" name="billing-email" data-bill=""></div>
+                                    <input class="input-text input-text--primary-style" type="text" name="billing-email" data-bill="" required>
+                                </div>
                                 <!--====== End - E-MAIL ======-->
 
 
                                 <!--====== PHONE ======-->
                                 <div class="u-s-m-b-15">
-
                                     <label class="gl-label" for="billing-phone">PHONE *</label>
-
-                                    <input class="input-text input-text--primary-style" type="text" name="billing-phone" data-bill=""></div>
+                                    <input class="input-text input-text--primary-style" type="text" name="billing-phone" data-bill="" required>
+                                </div>
                                 <!--====== End - PHONE ======-->
 
 
                                 <!--====== Street Address ======-->
                                 <div class="u-s-m-b-15">
-
                                     <label class="gl-label" for="billing-street">STREET ADDRESS *</label>
-
-                                    <input class="input-text input-text--primary-style" type="text" name="billing-street" placeholder="House name and street name" data-bill=""></div>
+                                    <input class="input-text input-text--primary-style" type="text" name="billing-street" placeholder="House name and street name" data-bill="" required>
+                                </div>
                                 <div class="u-s-m-b-15">
-
                                     <label for="billing-street-optional"></label>
-
                                     <input class="input-text input-text--primary-style" type="text" name="billing-street-optional" placeholder="Apartment, suite unit etc. (optional)" data-bill="">
                                 </div>
                                 <!--====== End - Street Address ======-->
@@ -63,11 +56,9 @@
 
                                 <!--====== Country ======-->
                                 <div class="u-s-m-b-15">
-
                                     <!--====== Select Box ======-->
-
                                     <label class="gl-label" for="billing-country">COUNTRY *</label>
-                                    <select class="select-box select-box--primary-style" name="billing-country" data-bill="">
+                                    <select class="select-box select-box--primary-style" name="billing-country" data-bill="" required>
                                         <option selected value="">Choose Country</option>
                                         <option value="india">India</option>
                                         <option value="uk">United Kingdom (UK)</option>
@@ -80,20 +71,17 @@
 
                                 <!--====== Town / City ======-->
                                 <div class="u-s-m-b-15">
-
                                     <label class="gl-label" for="billing-town-city">TOWN/CITY *</label>
-
-                                    <input class="input-text input-text--primary-style" type="text" name="billing-town-city" data-bill=""></div>
+                                    <input class="input-text input-text--primary-style" type="text" name="billing-town-city" data-bill="" required>
+                                </div>
                                 <!--====== End - Town / City ======-->
 
 
                                 <!--====== STATE/PROVINCE ======-->
                                 <div class="u-s-m-b-15">
-
                                     <!--====== Select Box ======-->
-
                                     <label class="gl-label" for="billing-state">STATE/PROVINCE *</label>
-                                    <select class="select-box select-box--primary-style" name="billing-state" data-bill="">
+                                    <select class="select-box select-box--primary-style" name="billing-state" data-bill="" required>
                                         <option selected value="">Choose State/Province</option>
                                         <option value="assam">Assam</option>
                                         <option value="al">Alaska</option>
@@ -106,17 +94,18 @@
 
                                 <!--====== ZIP/POSTAL ======-->
                                 <div class="u-s-m-b-15">
-
                                     <label class="gl-label" for="billing-zip">ZIP/POSTAL CODE *</label>
-
-                                    <input class="input-text input-text--primary-style" type="text" name="billing-zip" placeholder="Zip/Postal Code" data-bill=""></div>
+                                    <input class="input-text input-text--primary-style" type="text" name="billing-zip" placeholder="Zip/Postal Code" data-bill="" required>
+                                </div>
                                 <!--====== End - ZIP/POSTAL ======-->
                                 <div class="u-s-m-b-10">
-
-                                    <label class="gl-label" for="order-note">ORDER NOTE</label><textarea class="text-area text-area--primary-style" name="order-note"></textarea></div>
+                                    <label class="gl-label" for="order-note">ORDER NOTE</label>
+                                    <textarea class="text-area text-area--primary-style" name="order-note"></textarea>
+                                </div>
 
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <h1 class="checkout-f__h1">ORDER SUMMARY</h1>
 
@@ -164,24 +153,38 @@
                                         <h1 class="checkout-f__h1">PAYMENT INFORMATION</h1>
 
                                         <div class="u-s-m-b-10">
-
                                             <!--====== Radio Box ======-->
                                             <div class="radio-box">
-
-                                                <input type="radio" value="CAsh" name="cash-on-delivery" value="COD">
+                                                <input type="radio" value="Cash" name="cash-on-delivery" id="cash-on-delivery">
                                                 <div class="radio-box__state radio-box__state--primary">
-
-                                                    <label class="radio-box__label" for="cash-on-delivery">Cash on Delivery</label></div>
+                                                    <label class="radio-box__label" for="cash-on-delivery">Cash on Delivery</label>
+                                                </div>
                                             </div>
                                             <!--====== End - Radio Box ======-->
-
                                             <span class="gl-text u-s-m-t-6">Pay Upon Cash on delivery. (This service is only available for some countries)</span>
                                         </div>
                                         <div>
-
-                                            <button class="btn btn--e-brand-b-2" type="submit">PLACE ORDER</button>
+                                            <button class="btn btn--e-brand-b-1" type="submit" id="place-order-btn" disabled>PLACE ORDER</button>
                                         </div>
                                     </div>
+
+                                    <script>
+                                        const checkbox = document.getElementById("cash-on-delivery");
+                                        const placeOrderBtn = document.getElementById("place-order-btn");
+
+                                        checkbox.addEventListener("change", function () {
+                                            if (this.checked) {
+                                                placeOrderBtn.disabled = false;
+                                                placeOrderBtn.classList.remove("btn--e-brand-b-1");
+                                                placeOrderBtn.classList.add("btn--e-brand-b-2");
+                                            } else {
+                                                placeOrderBtn.disabled = true;
+                                                placeOrderBtn.classList.remove("btn--e-brand-b-2");
+                                                placeOrderBtn.classList.add("btn--e-brand-b-1");
+                                            }
+                                        });
+                                    </script>
+
                                 </div>
                             </div>
                             <!--====== End - Order Summary ======-->

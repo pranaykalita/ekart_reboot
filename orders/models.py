@@ -58,6 +58,7 @@ class orderapprovals(models.Model):
         ('pending', 'pending'),
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
+        ('delivered', 'Delivered'),
     ]
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='sellerstatus')
     seller = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, related_name='selleraccount')

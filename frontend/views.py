@@ -1,3 +1,4 @@
+import requests
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 
@@ -98,7 +99,7 @@ def editprofile(request, id):
     url = f"http://127.0.0.1:8000/api/orders/{customerid}/"
     resp = requests.get(url)
     orders = resp.json()
-    context = {'customer': customer, 'customer_detail': customer_detail,'orderdetail': orders}
+    context = {'customer': customer, 'customer_detail': customer_detail, 'orderdetail': orders}
     return render(request, 'frontend/pages/dashboard/dasheditprofile/index.html', context)
 
 
@@ -128,7 +129,7 @@ def editpassword(request, id):
     url = f"http://127.0.0.1:8000/api/orders/{customerid}/"
     resp = requests.get(url)
     orders = resp.json()
-    context = {'customer': customer, 'customer_detail': customer_detail, 'orderdetail': orders }
+    context = {'customer': customer, 'customer_detail': customer_detail, 'orderdetail': orders}
     return render(request, 'frontend/pages/dashboard/dasheditpass/index.html', context)
 
 
@@ -144,5 +145,10 @@ def dashboardorders(request):
 
 
 @login_required(login_url='fsignin')
-def dashboardorderdetails(request):
-    return render(request, 'frontend/pages/dashboard/dashorderdetails/index.html')
+def dashboardorderdetails(request, id):
+    url = f"http://127.0.0.1:8000/api/orderdetails/{id}/"
+    response = requests.get(url)
+    data = response.json()
+    context= {'details':data}
+
+    return render(request, 'frontend/pages/dashboard/dashorderdetails/index.html',context)

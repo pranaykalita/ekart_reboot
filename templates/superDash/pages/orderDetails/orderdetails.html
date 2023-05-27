@@ -73,6 +73,8 @@
                                     <td><span class="badge bg-success">{{ seller.approval }}</span></td>
                                 {% elif  seller.approval == "rejected" %}
                                     <td><span class="badge bg-danger">{{ seller.approval }}</span></td>
+                                {% elif  seller.approval == "delivered" %}
+                                    <td><span class="badge bg-success">{{ seller.approval }}</span></td>
                                 {% endif %}
 
                             </tr>
@@ -144,11 +146,14 @@
 
                     {% if orderdata.orderstatus == 'approved' %}
                         <h4 class="text text-success">ORDER CONFIRMED</h4>
+                        <a href="{% url 'Supdelvierorder' id=orderdata.id %}" class="m-3 btn btn-success ">Mark as Delivered</a>
                     {% elif orderdata.orderstatus == 'pending'%}
                          <a href="{% url 'Supconforder' id=orderdata.id %}" class="m-3 btn btn-primary ">Confirm Order</a>
                          <a href="{% url 'Suprejorder' id=orderdata.id %}" class="m-3 btn btn-danger ">Cancel Order</a>
                     {% elif orderdata.orderstatus == 'cancelled'%}
                           <h4 class="text text-danger">ORDER CANCELED</h4>
+                    {% elif orderdata.orderstatus == 'delivered'%}
+                        <h4 class="text text-success">ORDER Delivered</h4>
                     {% endif %}
 
 

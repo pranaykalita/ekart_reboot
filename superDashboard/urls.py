@@ -27,4 +27,7 @@ urlpatterns = [
     path('cnforder/<str:id>/', confirmorder, name='Supconforder'),
     path('rejorder/<str:id>/', rejectorder, name='Suprejorder'),
 
+    path('processorders/', orderprocess, name='Supprocessorder'),
+    path('delivered/<str:id>/', deliverorder, name='Supdelvierorder'),
+
 ]

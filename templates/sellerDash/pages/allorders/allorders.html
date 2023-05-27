@@ -41,6 +41,7 @@
                                     {{ order.items|length }}
                                 </td>
                                 <td>
+
                                      <span class="badge
                                      {% if order.orderstatus == 'cancelled' %}
                                      bg-danger
@@ -48,6 +49,8 @@
                                      bg-success
                                      {% elif order.orderstatus == 'pending' %}
                                      bg-primary
+                                     {% elif order.orderstatus == 'delivered' %}
+                                     bg-success
                                      {% endif %}">{{ order.orderstatus }}
                                      </span>
                                 </td>
@@ -61,6 +64,7 @@
                                                 bg-success
                                             {% elif xdata.approval == 'pending' %}
                                                 bg-primary
+
                                             {% endif %}">
                                                 {{ xdata.approval }}
                                             </span>

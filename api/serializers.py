@@ -160,10 +160,17 @@ class DeliveryAddressser(serializers.ModelSerializer):
         model = Orderaddress
         fields = '__all__'
 
+class shipaddressser(serializers.ModelSerializer):
+    class Meta:
+        model = Orderaddress
+        fields = '__all__'
+
 class AllorderSerializer(serializers.ModelSerializer):
     sellerstatus = SellersstatusSer(many=True)
     customer = serializers.SlugRelatedField(slug_field='username', queryset=CustomerUser.objects.all())
     orderaddress = DeliveryAddressser(many=True)
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    orderaddress = shipaddressser(many=True)
     class Meta:
         model = Order
         fields = '__all__'

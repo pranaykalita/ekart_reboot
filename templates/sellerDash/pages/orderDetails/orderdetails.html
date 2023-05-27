@@ -99,13 +99,16 @@
                     <h5><b>{{ order_detail.created_at }}</b></h5>
                     <h5><b>Grand Total <span class="text-danger">{{ order_detail.subtotal }}<sup>RS</sup></span></b></h5>
                     {% for data in order_detail.sellerstatus %}
-                        {% if data.seller == request.session.sellerID and data.approval == 'approved' %}
+
+                        {% if data.seller == request.session.sellerID and data.approval == 'approved' and order_detail.orderstatus != 'delivered' %}
                             <h3 class="text text-success">Order Approved</h3>
                         {% elif data.seller == request.session.sellerID and data.approval == 'pending' %}
-                            <a href="{% url 'ordapprove' order_detail.id %}" class="m-3 btn btn-primary ">Approve Items</a>
+                            <a href="{% url 'ordapprove' order_detail.id order_detail.id %}" class="m-3 btn btn-primary ">Approve Items</a>
                             <a href="{% url 'ordreject' order_detail.id %}" class="m-3 btn btn-danger ">Cancel Order</a>
                         {% elif data.seller == request.session.sellerID and data.approval == 'rejected' %}
                             <h3 class="text text-danger">Order REJECTED</h3>
+                        {% elif data.seller == request.session.sellerID and data.approval == 'approved' and order_detail.orderstatus == 'delivered' %}
+                            <h3 class="text text-success">Order Delivered</h3>
                         {% endif %}
                     {% endfor %}
 

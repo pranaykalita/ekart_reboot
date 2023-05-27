@@ -27,7 +27,7 @@
                                                     <div>
                                                         <div class="dash__link dash__link--brand">
 
-                                                            <a href="">MANAGE</a></div>
+                                                            <a href="{% url 'fdashboardorderdetails' itm.id %}">MANAGE</a></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -41,8 +41,17 @@
                                                 </div>
                                                 <div class="description__info-wrap">
                                                     <div>
+                                                        {% if itm.orderstatus == 'pending' %}
+                                                            <span class="manage-o__badge" style="background: #3185FC;color: white"> Pending</span>
+                                                        {% elif itm.orderstatus == 'approved' %}
+                                                            <span class="manage-o__badge"  style="background: #11d34d;color: white"> Approved</span>
+                                                        {% elif itm.orderstatus == 'delivered' %}
+                                                            <span class="manage-o__badge" style="background: #016e23;color: white"> Delivered</span>
+                                                        {% elif itm.orderstatus == 'cancelled' %}
+                                                            <span class="manage-o__badge"  style="background: orangered;color: white"> Cancelled</span>
+                                                        {% endif %}
 
-                                                        <span class="manage-o__badge badge--processing"> {{ itm.orderstatus }}</span></div>
+                                                    </div>
                                                     <div>
 
                                                                 <span class="manage-o__text-2 u-c-silver">Quantity:

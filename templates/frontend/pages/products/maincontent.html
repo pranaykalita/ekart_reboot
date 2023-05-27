@@ -20,7 +20,7 @@
                                         {% for cat in allcategory %}
                                             <li class="has-list">
 
-                                                <a href="#">{{ cat.name }}</a>
+                                                <a href="{% url 'fproductpage' %}?filter={{ cat.name }}">{{ cat.name }}</a>
 
                                                 <span class="category-list__text u-s-m-l-6">{{ cat.subcategory | length }}</span>
 

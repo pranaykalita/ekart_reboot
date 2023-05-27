@@ -24,6 +24,7 @@ def products(request):
     context = {'products': products}
     return render(request, 'superDash/pages/products/index.html', context)
 
+
 @login_required(login_url='sellerlogin')
 def singleproduct(request, id):
     api_url = product_url + id
@@ -189,4 +190,26 @@ def rejectorder(request, id):
     approvals.approval = "rejected"
     approvals.save()
 
+    return redirect('Supallorder')
+
+
+@login_required(login_url='Suplogin')
+def orderprocess(request):
+    url = "http://127.0.0.1:8000/api/allorders/"
+    response = requests.get(url)
+    allorder = response.json()
+    context = {'allorders': allorder}
+    print(url)
+    return render(request, 'superDash/pages/processorders/index.html', context)
+
+
+@login_required(login_url='Suplogin')
+def deliverorder(request, id):
+    orderdata = Order.objects.get(id=id)
+    orderdata.orderstatus = "delivered"
+    orderdata.save()
+    # set customer model
+    approvals = orderapprovals.objects.get(order=id, seller=orderdata.customer)
+    approvals.approval = "delivered"
+    approvals.save()
     return redirect('Supallorder')

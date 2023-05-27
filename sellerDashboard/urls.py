@@ -27,7 +27,7 @@ urlpatterns = [
     path('allorders/', allorders, name='allorders'),
     path('order/<str:id>/', orderdetails, name='orderdetails'),
 
-    path('approveorder/<str:id>/', orderapprove, name='ordapprove'),
+    path('approveorder/<str:id>/<int:qty>/', orderapprove, name='ordapprove'),
     path('rejectorder/<str:id>/', orderreject, name='ordreject'),
 
 
