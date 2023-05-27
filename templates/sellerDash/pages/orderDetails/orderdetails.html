@@ -4,9 +4,9 @@
 
 
 <div class="row">
-<div class="col-sm-4">
-                        <a href="{% url 'allorders' %}" class="btn btn-success mb-2"><i class="mdi mdi-keyboard-backspace me-2"></i> Back</a>
-                    </div>
+    <div class="col-sm-4">
+        <a href="{% url 'allorders' %}" class="btn btn-success mb-2"><i class="mdi mdi-keyboard-backspace me-2"></i> Back</a>
+    </div>
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -51,10 +51,15 @@
                 <h4 class="header-title mb-3">Billing Information</h4>
 
                 <ul class="list-unstyled mb-0">
+                <h5>Ordered by:  <span>{{ order_detail.customer }}</span></h5>
                     <li>
                         <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span>{{ order_detail.payment }}</p>
-
                     </li>
+                    {% for note in  order_detail.sellerstatus %}
+                        {% if note.seller == request.session.sellerID %}
+                            <h5>Order Note: <span class="text text-primary">{{ note.note }}</span></h5>
+                        {% endif %}
+                    {% endfor %}
 
                 </ul>
 
@@ -93,17 +98,17 @@
                     <h5><b>{{ order_detail.orderno }}</b></h5>
                     <h5><b>{{ order_detail.created_at }}</b></h5>
                     <h5><b>Grand Total <span class="text-danger">{{ order_detail.subtotal }}<sup>RS</sup></span></b></h5>
-                    {% if order_detail.sellerstatus.approval == 'rejected' %}hi{% endif %}
-                    {% for sstatus in order_detail.sellerstatus %}
-                        {% if sstatus.approval == 'rejected' %}
-                            <h3 class="m-3 text-danger ">Rejected</h3>
-                        {% elif sstatus.approval == 'pending'  %}
-                            <a href="{% url 'ordapprove' order_detail.id %}" class="m-3 btn btn-success " disabled>Approve Items</a>
-                            <a href="{% url 'ordreject' order_detail.id %}" class="m-3 btn btn-danger">Reject Items</a>
-                        {% elif sstatus.approval == 'approved'  %}
-                            <h3 class="m-3 text-success " >Approved</h3>
+                    {% for data in order_detail.sellerstatus %}
+                        {% if data.seller == request.session.sellerID and data.approval == 'approved' %}
+                            <h3 class="text text-success">Order Approved</h3>
+                        {% elif data.seller == request.session.sellerID and data.approval == 'pending' %}
+                            <a href="{% url 'ordapprove' order_detail.id %}" class="m-3 btn btn-primary ">Approve Items</a>
+                            <a href="{% url 'ordreject' order_detail.id %}" class="m-3 btn btn-danger ">Cancel Order</a>
+                        {% elif data.seller == request.session.sellerID and data.approval == 'rejected' %}
+                            <h3 class="text text-danger">Order REJECTED</h3>
                         {% endif %}
                     {% endfor %}
+
 
                 </div>
             </div>

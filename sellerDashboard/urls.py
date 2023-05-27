@@ -1,11 +1,12 @@
 from django.urls import path
 
 from .views import *
-from account.views import sellerLogin,sellerregister
+from account.views import sellerLogin,sellerregister,sellerlogout
 
 urlpatterns = [
     path('login/',sellerLogin,name='sellerlogin'),
     path('register/', sellerregister,name='sellerregister'),
+    path('slogout/', sellerlogout,name='sellerlogout'),
 
     path('dashboard/', dashboard, name='sellerdashboard'),
     path('products/', products, name='sellerproducts'),

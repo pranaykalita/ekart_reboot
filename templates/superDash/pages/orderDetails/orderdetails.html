@@ -1,0 +1,160 @@
+{% load static %}
+
+<!-- end row -->
+
+
+<div class="row">
+    <div class="col-sm-4">
+        <a href="{% url 'Supallorder' %}" class="btn btn-success mb-2"><i class="mdi mdi-keyboard-backspace me-2"></i> Back</a>
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-3">Items from <span class=" text text-danger"> {{ order_detail.orderno }}</span></h4>
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>sold By</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in orderdata.items %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.seller }}</td>
+                                <td class="text-danger">RS {{ item.product.price }}</td>
+                                <td class="text-primary">RS {{ item.itemtotal }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- end table-responsive -->
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-3">Items from <span class=" text text-danger"> {{ order_detail.orderno }}</span></h4>
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                        <tr>
+                            <th>Seller</th>
+                            <th>order</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for seller in orderdata.sellerstatus %}
+                            <tr>
+                                <td>
+                                    {% if seller.seller == orderdata.customer %}
+                                        <span class="badge bg-primary">customer</span>
+                                       <strong>{{ seller.seller }}</strong>
+                                    {% elif seller.seller != orderdata.customer %}
+                                        <span class="badge bg-success">Seller</span>
+                                        {{ seller.seller }}
+                                    {% endif %}
+                                </td>
+
+                                {% if  seller.approval == "pending" %}
+                                    <td><span class="badge bg-primary">{{ seller.approval }}</span></td>
+                                {% elif  seller.approval == "approved" %}
+                                    <td><span class="badge bg-success">{{ seller.approval }}</span></td>
+                                {% elif  seller.approval == "rejected" %}
+                                    <td><span class="badge bg-danger">{{ seller.approval }}</span></td>
+                                {% endif %}
+
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- end table-responsive -->
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+
+<div class="row">
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-3">Billing Information</h4>
+
+                <ul class="list-unstyled mb-0">
+                    <h5>Ordered by: <span>{{ orderdata.customer }}</span></h5>
+                    <li>
+                        <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span>{{ orderdata.payment }}</p>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+    {% for info in orderdata.orderaddress %}
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mb-3">Delivery Information</h4>
+
+                    <h5>{{ info.firstname }} {{ info.lastname }}</h5>
+
+                    <address class="mb-0 font-14 address-lg">
+                        {{ info.address1 }}, {{ info.address2 }}<br>
+                        {{ info.city }}, {{ info.state }} {{ info.postal }}<br>
+                        <span title="Phone">Phone :</span> {{ info.phone }} <br>
+                        <span title="Mobile">Email:</span> {{ info.email }}
+                    </address>
+
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+    {% endfor %}
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-3">Order Managment</h4>
+
+                <div class="text-center">
+                    <i class="mdi mdi-truck-fast h2 text-muted"></i>
+                    <h5><b>{{ orderdata.orderno }}</b></h5>
+                    <h5><b>{{ orderdata.created_at }}</b></h5>
+                    <h5><b>Grand Total <span class="text-danger">{{ orderdata.subtotal }}<sup>RS</sup></span></b></h5>
+
+                    {% if orderdata.orderstatus == 'approved' %}
+                        <h4 class="text text-success">ORDER CONFIRMED</h4>
+                    {% elif orderdata.orderstatus == 'pending'%}
+                         <a href="{% url 'Supconforder' id=orderdata.id %}" class="m-3 btn btn-primary ">Confirm Order</a>
+                         <a href="{% url 'Suprejorder' id=orderdata.id %}" class="m-3 btn btn-danger ">Cancel Order</a>
+                    {% elif orderdata.orderstatus == 'cancelled'%}
+                          <h4 class="text text-danger">ORDER CANCELED</h4>
+                    {% endif %}
+
+
+
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>

@@ -19,11 +19,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for order in orders %}
-                            {% for data in order.sellerstatus %}
-                                {% if data.approval == 'pending' and data.seller == request.session.sellerID %}
-                                    <tr>
+                        {% for order in allorders %}
+                                {% if order.orderstatus == "pending"  %}
 
+                                    <tr>
                                         <td>
                                             <span class="text-warning">{{ order.orderno }}</span>
                                         </td>
@@ -47,12 +46,11 @@
                                         </td>
 
                                         <td class="table-action">
-                                            <a href="{% url 'orderdetails' id=order.id %}" class="btn btn-danger "> <i class="mdi mdi-eye"></i> Manage</a>
+                                            <a href="{% url 'Suporderdetails' id=order.id %}" class="btn btn-danger "> <i class="mdi mdi-eye"></i> Manage</a>
                                         </td>
                                     </tr>
-                                {% endif %}
+                            {% endif %}
                             {% endfor %}
-                        {% endfor %}
 
                         </tbody>
                     </table>

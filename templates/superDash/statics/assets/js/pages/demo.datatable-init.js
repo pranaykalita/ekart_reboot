@@ -55,3 +55,4 @@ $(document).ready(function () {
         }
     }), $(".dataTables_length select").addClass("form-select form-select-sm"), $(".dataTables_length label").addClass("form-label")
 });
+

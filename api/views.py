@@ -118,3 +118,19 @@ class orderRetrive(RetrieveModelMixin,MultipleFieldLookupORMixin,GenericAPIView)
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
+
+
+
+class allorderView(ListModelMixin,GenericAPIView):
+    queryset = Order.objects.all()
+    serializer_class = AllorderSerializer
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+class RetriveorderView(RetrieveModelMixin,GenericAPIView):
+    queryset = Order.objects.all()
+    serializer_class = AllorderSerializer
+    lookup_field = 'id'
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)

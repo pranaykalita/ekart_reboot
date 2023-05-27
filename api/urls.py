@@ -27,4 +27,9 @@ urlpatterns = [
     path('orders/<str:customer>/', orderlist.as_view(), name='orderapi'),
     path('orders/<str:customer>/<str:id>/', orderRetrive.as_view(), name='orderretrive'),
 
+    path('allorders/', allorderView.as_view(), name='allorders'),
+    path('orderdetails/<int:id>/', RetriveorderView.as_view(), name='orderdetails'),
+
+
+
 ]

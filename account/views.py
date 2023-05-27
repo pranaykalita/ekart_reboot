@@ -1,10 +1,36 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 
-from .models import *
+from cart.models import Cart
 from frontend.views import allcategory
+from .models import *
+
+
 # Create your views here.
 # seller Login:
+
+def Managerlogin(request):
+    if request.user.is_authenticated:
+        return redirect('SupDash')
+    else:
+        if request.method == 'POST':
+
+            email = request.POST.get("emailaddress")
+            password = request.POST.get("password")
+            print(email, password)
+
+            manager = authenticate(request, email=email, password=password)
+            if manager is not None and manager.is_superuser == True and manager.is_seller == True:
+                login(request, manager)
+
+                # store session
+                request.session['managerID'] = manager.id
+                request.session['managerUsername'] = manager.username
+                return redirect('sellerdashboard')
+            else:
+                return redirect('SupDash')
+        return render(request, 'superDash/pages/login_registration/login.html')
+
 
 def sellerLogin(request):
     if request.user.is_authenticated:
@@ -14,18 +40,19 @@ def sellerLogin(request):
 
             email = request.POST.get("emailaddress")
             password = request.POST.get("password")
-            print(email,password)
+            print(email, password)
 
-            seller = authenticate(request,email=email,password=password)
+            seller = authenticate(request, email=email, password=password)
             if seller is not None and seller.is_seller and seller.is_staff == True:
-                login(request,seller)
+                login(request, seller)
                 # store session
                 request.session['sellerID'] = seller.id
                 request.session['sellerUsername'] = seller.username
                 return redirect('sellerdashboard')
             else:
                 return redirect('sellerlogin')
-        return render(request,'sellerDash/pages/login_registration/login.html')
+        return render(request, 'sellerDash/pages/login_registration/login.html')
+
 
 def sellerregister(request):
     if request.method == "POST":
@@ -46,6 +73,7 @@ def sellerregister(request):
 
         return redirect('sellerlogin')
     return render(request, 'sellerDash/pages/login_registration/register.html')
+
 
 def customersignup(request):
     if request.user.is_authenticated:
@@ -84,6 +112,7 @@ def customerlogin(request):
                 login(request, customer)
                 request.session['customerID'] = customer.id
                 request.session['customerUsername'] = customer.username
+                Cart.objects.get_or_create(customer=customer)
                 return redirect('fhomepage')
             else:
                 return redirect('fsignin')
@@ -94,3 +123,13 @@ def customerlogin(request):
 def custoemrlogout(request):
     logout(request)
     return redirect('fsignin')
+
+
+def sellerlogout(request):
+    logout(request)
+    return redirect('sellerlogin')
+
+
+def managerlogout(request):
+    logout(request)
+    return redirect('Suplogin')

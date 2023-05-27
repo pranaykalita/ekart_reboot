@@ -11,7 +11,7 @@ urlpatterns = [
     path('apicrud/', include('apicrud.urls')),
 
     path('seller/', include('sellerDashboard.urls')),
-    path('management/', include('superDashboard.urls')),
+    path('manager/', include('superDashboard.urls')),
 
     path('', include('frontend.urls')),
 ]

@@ -148,3 +148,22 @@ class Orderserializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+#######################################################
+class SellersstatusSer(serializers.ModelSerializer):
+    seller = serializers.SlugRelatedField(slug_field='username', queryset=CustomerUser.objects.all())
+    class Meta:
+        model = orderapprovals
+        fields = '__all__'
+
+class DeliveryAddressser(serializers.ModelSerializer):
+    class Meta:
+        model = Orderaddress
+        fields = '__all__'
+
+class AllorderSerializer(serializers.ModelSerializer):
+    sellerstatus = SellersstatusSer(many=True)
+    customer = serializers.SlugRelatedField(slug_field='username', queryset=CustomerUser.objects.all())
+    orderaddress = DeliveryAddressser(many=True)
+    class Meta:
+        model = Order
+        fields = '__all__'

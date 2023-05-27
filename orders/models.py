@@ -14,6 +14,7 @@ def generate_orderid():
 class Order(models.Model):
     ORDER_STATUS_CHOICES = [
         ('pending', 'Pending'),
+        ('approved', 'Approved'),
         ('shipped', 'Shipped'),
         ('delivered', 'Delivered'),
         ('cancelled', 'Cancelled'),
@@ -52,7 +53,7 @@ class Orderaddress(models.Model):
         return f"{self.order}, {self.city}, {self.state}, {self.country}"
 
 
-class selleraproval(models.Model):
+class orderapprovals(models.Model):
     Approval_status = [
         ('pending', 'pending'),
         ('approved', 'Approved'),

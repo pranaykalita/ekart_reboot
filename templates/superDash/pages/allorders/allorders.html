@@ -16,12 +16,11 @@
                             <th>Price</th>
                             <th>Items</th>
                             <th>Admin Status</th>
-                            <th>Seller Status</th>
                             <th style="width: 85px;">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for order in orders %}
+                        {% for order in allorders %}
                             <tr>
 
                                 <td>
@@ -42,7 +41,7 @@
                                 </td>
                                 <td>
                                      <span class="badge
-                                     {% if order.orderstatus == 'cancelled' %}
+                                     {% if order.orderstatus == 'rejected' %}
                                      bg-danger
                                      {% elif order.orderstatus == 'approved' %}
                                      bg-success
@@ -51,25 +50,9 @@
                                      {% endif %}">{{ order.orderstatus }}
                                      </span>
                                 </td>
-                                <td>
-                                    {% for xdata in order.sellerstatus %}
-                                        {% if xdata.seller == request.session.sellerID %}
-                                            <span class="badge
-                                            {% if xdata.approval == 'rejected' %}
-                                                bg-danger
-                                            {% elif xdata.approval == 'approved' %}
-                                                bg-success
-                                            {% elif xdata.approval == 'pending' %}
-                                                bg-primary
-                                            {% endif %}">
-                                                {{ xdata.approval }}
-                                            </span>
-                                        {% endif %}
-                                    {% endfor %}
-                                </td>
 
                                 <td class="table-action">
-                                    <a href="{% url 'orderdetails' id=order.id %}" class="btn btn-danger"> <i class="mdi mdi-eye"></i> Manage</a>
+                                    <a href="{% url 'Suporderdetails' id=order.id %}" class="btn btn-danger"> <i class="mdi mdi-eye"></i> Manage</a>
                                 </td>
                             </tr>
                         {% endfor %}

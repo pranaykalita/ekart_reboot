@@ -1,59 +1,17 @@
 <ul class="side-nav">
 
-    <li class="side-nav-title side-nav-item">Manager</li>
+    <li class="side-nav-title side-nav-item">Main</li>
 
     <li class="side-nav-item">
-        <a href="{% url 'sellerdashboard' %}" class="side-nav-link">
+        <a href="{% url 'SupDash' %}" class="side-nav-link">
             <i class="uil-home-alt"></i>
             <span> Dashboard </span>
         </a>
     </li>
 
-    <li class="side-nav-title side-nav-item">SITE Managments</li>
-
+    <li class="side-nav-title side-nav-item">managements</li>
     <li class="side-nav-item">
-        <a data-bs-toggle="collapse" href="#sidebarwebmanage" aria-expanded="false"
-           aria-controls="sidebarwebmanage" class="side-nav-link">
-            <i class="uil-clipboard-alt"></i>
-            <span> Banner Setup</span>
-            <span class="menu-arrow"></span>
-        </a>
-        <div class="collapse" id="sidebarwebmanage">
-            <ul class="side-nav-second-level">
-                <li>
-                    <a href="{% url 'sellercategory' %}">Main Banner</a>
-                </li>
-                <li>
-                    <a href="{% url 'sellersubcategory' %}">Secondary Banner</a>
-                </li>
-            </ul>
-        </div>
-    </li>
-
-     <li class="side-nav-item">
-        <a data-bs-toggle="collapse" href="#sidebarprodsel" aria-expanded="false"
-           aria-controls="sidebarprodsel" class="side-nav-link">
-            <i class="uil-clipboard-alt"></i>
-            <span>Product Selection</span>
-            <span class="menu-arrow"></span>
-        </a>
-        <div class="collapse" id="sidebarprodsel">
-            <ul class="side-nav-second-level">
-                <li>
-                    <a href="{% url 'sellercategory' %}">Featured</a>
-                </li>
-                <li>
-                    <a href="{% url 'sellersubcategory' %}">Tranding</a>
-                </li>
-            </ul>
-        </div>
-    </li>
-
-    <li class="side-nav-title side-nav-item">Controls</li>
-
-    <li class="side-nav-item">
-        <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
-           aria-controls="sidebarEcommerce" class="side-nav-link">
+        <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
             <i class="uil-store"></i>
             <span> Ecommerce </span>
             <span class="menu-arrow"></span>
@@ -61,19 +19,15 @@
         <div class="collapse" id="sidebarEcommerce">
             <ul class="side-nav-second-level">
                 <li>
-                    <a href="{% url 'sellerproducts' %}">Products</a>
+                    <a href="{% url 'SupProducts' %}">Products</a>
                 </li>
-                <li>
-                    <a href="{% url 'addproduct' %}">Add Products</a>
-                </li>
+
 
             </ul>
         </div>
     </li>
-
     <li class="side-nav-item">
-        <a data-bs-toggle="collapse" href="#sidebarEcommerce2" aria-expanded="false"
-           aria-controls="sidebarEcommerce2" class="side-nav-link">
+        <a data-bs-toggle="collapse" href="#sidebarEcommerce2" aria-expanded="false" aria-controls="sidebarEcommerce2" class="side-nav-link">
             <i class="uil-clipboard-alt"></i>
             <span> Category </span>
             <span class="menu-arrow"></span>
@@ -81,19 +35,25 @@
         <div class="collapse" id="sidebarEcommerce2">
             <ul class="side-nav-second-level">
                 <li>
-                    <a href="{% url 'sellercategory' %}">List Category</a>
+                    <a href="{% url 'Supcategory' %}">List Category</a>
                 </li>
                 <li>
-                    <a href="{% url 'sellersubcategory' %}">List SubCategory</a>
+                    <a href="{% url 'Supsubcategory' %}">List SubCategory</a>
                 </li>
             </ul>
         </div>
     </li>
 
     <li class="side-nav-item">
-        <a href="#" class="side-nav-link">
+        <a href="{% url 'Supneworder' %}" class="side-nav-link">
             <i class="uil-calender"></i>
-            <span> Orders </span>
+            <span> New Orders </span>
+        </a>
+    </li>
+    <li class="side-nav-item">
+        <a href="{% url 'Supallorder' %}" class="side-nav-link">
+            <i class="uil-calender"></i>
+            <span>All Orders </span>
         </a>
     </li>
 
