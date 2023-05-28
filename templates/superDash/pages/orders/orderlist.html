@@ -33,9 +33,8 @@
                                             {{ order.created_at }}
                                         </td>
                                         <td style="color: #0c6af3">
-                                            {% for total in order.items %}
-                                                ₹ {{ total.itemtotal }}
-                                            {% endfor %}
+
+                                                ₹ {{ order.subtotal }}
                                         </td>
 
                                         <td>
