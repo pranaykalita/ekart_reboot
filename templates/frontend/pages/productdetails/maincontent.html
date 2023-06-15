@@ -84,7 +84,7 @@
                             {{ product.productdetail.about|safe }}
                         </span>
                     </div>
-
+                     
 
                     <div class="u-s-m-b-15">
                         <form class="pd-detail__form" method="post" action="{% url 'faddtocart' product=product.id %}">
@@ -123,10 +123,16 @@
 
                                     <button class="btn btn--e-brand-b-2" type="submit">Add to Cart</button>
                                 </div>
+
                             </div>
                         </form>
                     </div>
+                    <div class="u-s-m-b-15">
 
+                        <span class="pd-detail__preview-desc">
+                            {{ product.productdetail.description|safe }}
+                        </span>
+                    </div>
                 </div>
                 <!--====== End - Product Right Side Details ======-->
             </div>

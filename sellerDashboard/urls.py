@@ -8,6 +8,7 @@ urlpatterns = [
     path('register/', sellerregister,name='sellerregister'),
     path('slogout/', sellerlogout,name='sellerlogout'),
 
+    path('', dashboard, ),
     path('dashboard/', dashboard, name='sellerdashboard'),
     path('products/', products, name='sellerproducts'),
 
@@ -26,6 +27,7 @@ urlpatterns = [
     path('orders/', orderbyseller, name='orders'),
     path('allorders/', allorders, name='allorders'),
     path('order/<str:id>/', orderdetails, name='orderdetails'),
+    
 
     path('approveorder/<str:id>/<int:qty>/', orderapprove, name='ordapprove'),
     path('rejectorder/<str:id>/', orderreject, name='ordreject'),
