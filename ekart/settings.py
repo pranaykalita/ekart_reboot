@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-za4gy(#iytobdn+p1v@0dm(6oxh84t5b#(h2*ej=u+zf7@8kud
 DEBUG = True
 DATE_FORMAT = "Y-m-d"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -89,6 +89,19 @@ WSGI_APPLICATION = 'ekart.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'ekart_db',
+#         'USER': 'root',
+#         'PASSWORD': 'root',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+#         }
+#     }
+# }
 
 DATABASES = {
     'default': {

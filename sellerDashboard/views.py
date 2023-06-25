@@ -291,7 +291,7 @@ def allorders(request):
     print(context)
     return render(request, 'sellerDash/pages/allorders/index.html', context)
 
-
+@login_required(login_url='sellerlogin')
 def orderdetails(request, id):
     sellername = request.session.get('sellerUsername')
     api_url = order_url + sellername + '/' + id
@@ -300,7 +300,7 @@ def orderdetails(request, id):
 
     return render(request, 'sellerDash/pages/orderDetails/index.html', context)
 
-
+@login_required(login_url='sellerlogin')
 def orderapprove(request, id,qty):
     seller = request.session.get('sellerID')
     sellerorder = orderapprovals.objects.get(order=id,seller=seller)
@@ -314,6 +314,7 @@ def orderapprove(request, id,qty):
 
     return redirect('orders')
 
+@login_required(login_url='sellerlogin')
 def orderreject(request, id):
     seller = request.session.get('sellerID')
     sellerorder = orderapprovals.objects.get(order=id,seller=seller)

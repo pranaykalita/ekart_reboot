@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 from cart.models import Cart
 from frontend.views import allcategory
@@ -31,7 +32,31 @@ def Managerlogin(request):
                 return redirect('SupDash')
         return render(request, 'superDash/pages/login_registration/login.html')
 
+def ManagerRegister(request):
+    if not request.user.is_superuser:
+        return redirect('Suplogin')
 
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('emailaddress')
+        firstname = request.POST.get("firstname")
+        lastname = request.POST.get("lastname")
+
+        # Check if user already exists
+        if CustomerUser.objects.filter(email=email).exists():
+            print("exist alrady")
+            return redirect('sellerlogin')
+
+        CustomerUser.objects.create_superuser(
+            first_name = firstname,
+            last_name = lastname,
+            email=email,
+            password=password,
+            username=username,)
+
+        return redirect('sellerlogin')
+    return render(request, 'superDash/pages/login_registration/register.html')
 def sellerLogin(request):
     if request.user.is_authenticated:
         return redirect('sellerdashboard')
@@ -54,11 +79,18 @@ def sellerLogin(request):
         return render(request, 'sellerDash/pages/login_registration/login.html')
 
 
+
+@login_required(login_url='Suplogin')
 def sellerregister(request):
+    if not request.user.is_superuser:
+        return redirect('sellerlogin')
+
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
         email = request.POST.get('emailaddress')
+        firstname = request.POST.get("firstname")
+        lastname = request.POST.get("lastname")
 
         # Check if user already exists
         if CustomerUser.objects.filter(email=email).exists():
@@ -66,6 +98,8 @@ def sellerregister(request):
             return redirect('sellerlogin')
 
         CustomerUser.objects.create_seller(
+            first_name= firstname,
+            last_name = lastname,
             email=email,
             password=password,
             username=username,

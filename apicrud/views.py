@@ -1,11 +1,10 @@
-from django.db.models import Prefetch
-from rest_framework import generics
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin, RetrieveModelMixin
 
 from api.tests import MultipleFieldLookupORMixin
-from .serializer import *
 from orders.models import *
+from .serializer import *
+
 
 #########################################
 # Account LIST API

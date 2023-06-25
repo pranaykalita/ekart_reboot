@@ -1,9 +1,6 @@
-import requests
 from rest_framework import serializers
-from rest_framework.permissions import IsAuthenticated
 
-from account.models import *
-from orders.models import Order, Orderaddress ,orderapprovals
+from orders.models import Order, Orderaddress, orderapprovals
 from products.models import *
 
 

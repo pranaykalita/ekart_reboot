@@ -1,6 +1,6 @@
 from django.urls import path
 
-from account.views import Managerlogin, managerlogout
+from account.views import Managerlogin, managerlogout,ManagerRegister
 from .views import *
 
 urlpatterns = [
@@ -8,6 +8,7 @@ urlpatterns = [
 
     path('login/', Managerlogin, name='Suplogin'),
     path('logout.', managerlogout, name='Suplogout'),
+    path('register/', ManagerRegister, name='Supregister'),
 
     path('products/', products, name='SupProducts'),
     path('singleproduct/<str:id>/', singleproduct, name='Supsingleproducts'),

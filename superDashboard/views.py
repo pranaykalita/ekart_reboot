@@ -119,7 +119,10 @@ def Sellers(request):
     url = 'http://127.0.0.1:8000/api/accounts/'
     resp = requests.get(url)
     ac = resp.json()
-    context = {'accounts': ac}
+    seller_accounts = [account for account in ac if account.get('is_seller', False) and not account.get('is_superuser', False)]
+
+    # context = {'accounts': ac}
+    context = {'accounts': seller_accounts}
     return render(request, 'superDash/pages/sellers/index.html', context)
 
 
