@@ -17,6 +17,7 @@ def allcategory():
 
 
 def homepage(request):
+
     # trending
     url = productsurl
     products = showproducts(url)
